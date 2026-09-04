@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+const links=[['乃春_Chlors','我的个人站点与内容档案。'],['朋友的站点','在这里填写对方的网站描述。'],['另一个博客','写点自己喜欢的，也记录平凡日常。']];
+---
+<BaseLayout title="友链"><header class="report-head"><div><p class="eyebrow">CONNECTED NODES / 05</p><h1>友链</h1></div></header><section class="friend-grid">{links.map((link,i)=><a class="friend" href="#"><span class="node">NODE_00{i+1} // SYNC_OK</span><h2>{link[0]}</h2><p>{link[1]}</p></a>)}</section></BaseLayout>

@@ -1,0 +1,9 @@
+---
+import Sidebar from '../components/Sidebar.astro';
+import ThemeModal from '../components/ThemeModal.astro';
+import PageTransition from '../components/PageTransition.astro';
+import '../styles/global.css';
+import '../styles/content.css';
+const { title } = Astro.props;
+---
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width" /><title>{title} // 乃春_Chlors</title></head><body><Sidebar /><main><slot /></main><ThemeModal /><PageTransition /></body></html>

@@ -1,0 +1,2 @@
+{"name":"naichun-personal-site","private":true,"type":"module","scripts":{"dev":"astro dev","build":"astro build","preview":"astro preview"},"dependencies":{"@astrojs/check":"^0.9.3","astro":"^5.13.5","typescript":"^5.8.0"},"devDependencies":{}}
+

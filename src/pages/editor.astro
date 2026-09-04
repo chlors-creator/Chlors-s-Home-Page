@@ -1,0 +1,8 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+<BaseLayout title="文章导入"><header class="report-head"><div><p class="eyebrow">CONTENT PUBLISHER</p><h1>发布文章</h1></div></header><form class="editor-form" id="post-importer"><label>Markdown 正文<input id="body-file" type="file" accept=".md,.markdown,text/markdown" required /></label><label>管理员密码<input id="post-password" type="password" required /></label><label>标题<input id="post-title" required /></label><div class="form-row"><label>日期<input id="post-date" type="date" required /></label><label>专题<select id="post-topic" required><option value="" disabled selected>请选择专题 ▾</option><option value="诗集" data-slug="poetry">诗集</option><option value="笔记" data-slug="notes">笔记</option><option value="随笔" data-slug="essays">随笔</option><option value="__new__">＋ 新建专题</option></select></label><label class="new-topic-field" hidden>新专题名称<input id="new-topic" maxlength="30" placeholder="输入专题名称" /></label></div><label>标签<input id="post-tags" placeholder="使用逗号分隔" /></label><label>摘要<textarea id="post-description" rows="3"></textarea></label><button type="submit">发布到网站 →</button><p class="form-note">发布后会提交到 GitHub，并由 Cloudflare Pages 自动重新构建。</p></form><script is:inline src="/post-importer.js"></script></BaseLayout>
+
+
+
+

@@ -1,0 +1,7 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+const posts = (await getCollection('posts')).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
+---
+<BaseLayout title="归档"><header class="report-head"><div><p class="eyebrow">ARCHIVE / INDEX</p><h1>归档</h1></div><div class="report-actions"><div class="report-meta">{posts.length} RECORDS<br />SORT: NEWEST</div><a class="import-link" href="/editor/">导入文章 →</a></div></header><section class="archive-list"><div class="year"><span>2026</span><small>Cycle_Alpha</small></div>{posts.map(post=><a class="post" href={`/posts/${post.slug}/`}><time>{post.data.date.toISOString().slice(5,10)}</time><h3>{post.data.title}</h3><span class="arrow">→</span></a>)}</section></BaseLayout>
+

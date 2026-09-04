@@ -1,0 +1,1 @@
+addEventListener('click',e=>{const a=e.target.closest('a');if(!a||a.target==='_blank'||!a.href.startsWith(location.origin))return;e.preventDefault();document.body.classList.add('page-leaving');setTimeout(()=>location.href=a.href,260)},{capture:true});
