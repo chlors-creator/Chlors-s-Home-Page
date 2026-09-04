@@ -1,8 +1,4 @@
 (() => {
-  const stylesheet = document.createElement('link');
-  stylesheet.rel = 'stylesheet';
-  stylesheet.href = '/theme-modal.css';
-  document.head.appendChild(stylesheet);
   const themes = {
     paper: ['#e8e0d3', '#292a27', '#c9c0b2'],
     white: ['#ffffff', '#20211f', '#d7d7d3'],
