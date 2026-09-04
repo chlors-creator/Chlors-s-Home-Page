@@ -18,10 +18,15 @@
     modal.classList.add('is-closing');
     modal.addEventListener('animationend', () => modal.remove(), { once: true });
   };
-  applyTheme(localStorage.getItem('site-theme-choice') || 'paper');
-  document.querySelectorAll('.theme-toggle').forEach((button) => {
-    button.addEventListener('click', (event) => {
-      event.stopImmediatePropagation();
+  const restoreTheme = () => applyTheme(localStorage.getItem('site-theme-choice') || 'paper');
+  restoreTheme();
+
+  if (!window.__themeControlsReady) {
+    window.__themeControlsReady = true;
+    document.addEventListener('astro:after-swap', restoreTheme);
+    document.addEventListener('click', (event) => {
+      const button = event.target.closest('.theme-toggle');
+      if (!button) return;
       if (document.querySelector('.theme-modal')) return;
       const modal = document.createElement('div');
       modal.className = 'theme-modal';
@@ -35,7 +40,7 @@
         applyTheme(option.dataset.theme);
         closeModal(modal);
       });
-    }, { capture: true });
-  });
+    });
+  }
 })();
 
