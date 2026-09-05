@@ -20,4 +20,12 @@ try {
     }
   }
 } catch { }
+$windowTitle = Get-Process cloudmusic -ErrorAction SilentlyContinue | Where-Object { $_.MainWindowTitle } | Select-Object -ExpandProperty MainWindowTitle -First 1
+if ($windowTitle) {
+  $song = ($windowTitle -split '\s+-\s+', 2)[0].Trim()
+  if ($song) {
+    @{ state = 'playing'; song = $song } | ConvertTo-Json -Compress
+    exit
+  }
+}
 @{ state = 'online' } | ConvertTo-Json -Compress

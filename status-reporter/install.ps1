@@ -10,7 +10,7 @@ $reporter = Join-Path $PSScriptRoot 'reporter.cjs'
 $node = (Get-Command node.exe -ErrorAction Stop).Source
 $action = New-ScheduledTaskAction -Execute $node -Argument "`"$reporter`" `"$configPath`""
 $trigger = New-ScheduledTaskTrigger -AtLogOn -User $env:USERNAME
-$settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit ([TimeSpan]::Zero) -RestartCount 3 -RestartInterval (New-TimeSpan -Minutes 1)
+$settings = New-ScheduledTaskSettingsSet -ExecutionTimeLimit ([TimeSpan]::Zero) -RestartCount 999 -RestartInterval (New-TimeSpan -Minutes 1) -AllowStartIfOnBatteries -DontStopIfGoingOnBatteries
 Register-ScheduledTask -TaskName 'NaichunSitePresenceReporter' -Action $action -Trigger $trigger -Settings $settings -Description 'Report local Steam and NetEase Music presence to the personal site' -Force | Out-Null
 Start-ScheduledTask -TaskName 'NaichunSitePresenceReporter'
 Write-Host 'Installed. The presence reporter is running in the background.'
