@@ -25,6 +25,19 @@
     window.__themeControlsReady = true;
     document.addEventListener('astro:after-swap', restoreTheme);
     document.addEventListener('click', (event) => {
+      const link = event.target.closest('a[href]');
+      if (!link || link.target === '_blank') return;
+      const target = new URL(link.href, location.href);
+      const normalizePath = (path) => path.replace(/\/+$/, '') || '/';
+      const isCurrentPage = target.origin === location.origin
+        && normalizePath(target.pathname) === normalizePath(location.pathname)
+        && target.search === location.search
+        && target.hash === location.hash;
+      if (!isCurrentPage) return;
+      event.preventDefault();
+      event.stopImmediatePropagation();
+    }, { capture: true });
+    document.addEventListener('click', (event) => {
       const button = event.target.closest('.theme-toggle');
       if (!button) return;
       if (document.querySelector('.theme-modal')) return;

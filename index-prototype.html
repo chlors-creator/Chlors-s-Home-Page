@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>你的名字 // Archive</title>
+  <meta name="description" content="你的个人网站与文章档案。" />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    body{font-family:"Source Sans Pro","Noto Sans SC",Arial,sans-serif;--accent:#D4621A;--bg:#f7f5f2;--fg:#303030;--muted:#8a8a86;--line:#dedbd5}
+    .side-links span{margin-left:auto;color:#8a8a86;font-size:11px}.side-links a{display:flex;justify-content:space-between;gap:12px}
+    .eyebrow,.nav b,.nav .active i{color:#D4621A}
+  </style>
+<link rel="stylesheet" href="transition.css"><link rel="stylesheet" href="nav-state.css"><link rel="stylesheet" href="identity-layout.css"></head>
+<body>
+  <aside class="sidebar">
+    <div class="identity">
+      <div class="avatar">YN</div>
+      <h2>你的名字</h2>
+      <p class="muted">steam: —<br />spotify: —</p>
+      <p>循此苦旅，直抵群星。</p>
+    </div>
+    <div class="side-links"><a href="index.html">01 主页 <span>● Idle</span></a><a href="#archive">02 归档 <span>● Active</span></a><a href="#topics">03 专题 <span>● Idle</span></a><a href="#essays">04 闲谈 <span>● Idle</span></a><a href="#links">05 链接 <span>● Idle</span></a><a href="#about">06 关于 <span>● Idle</span></a><a href="#donate">07 赞助 <span>● Idle</span></a><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a></div>
+    <button class="theme-toggle" type="button" aria-label="切换深色模式">◐ <span>切换主题</span></button>
+    <div class="protocol">PERSONAL_ARCHIVE<br /><span>Protocol_V.1.0</span></div>
+  </aside>
+
+  <main>
+    <div class="topline"><span>你的名字 // Personal_House</span><span>12 Records Indexed</span></div>
+    <section class="hero" id="archive"><p class="eyebrow">AD ASTRA PER ASPERA</p><h1>归档</h1><p class="subtitle">记录想法、实践与正在发生的生活。</p></section>
+    <div class="filters"><button class="filter active" data-filter="all">全部</button><button class="filter" data-filter="技术">技术</button><button class="filter" data-filter="随笔">随笔</button><button class="filter" data-filter="生活">生活</button></div>
+    <section class="archive-list"><div class="year"><span>2026</span><small>Cycle_Alpha</small></div><div id="posts"></div></section>
+    <section class="info" id="about"><p class="eyebrow">ABOUT</p><h2>这是你的空间。</h2><p>把这里换成你的介绍、兴趣和正在做的事情。这个原型的每一处文字、颜色和链接都可以直接编辑。</p></section>
+    <section class="info" id="links"><p class="eyebrow">LINKS</p><h2>你常去的地方</h2><p><a href="https://github.com/" target="_blank" rel="noreferrer">GitHub →</a>　<a href="mailto:hello@example.com">Email →</a></p></section>
+  </main>
+  <script src="script.js"></script>
+<script src="theme-modal.js"></script></body>
+</html>
+
+
+
+

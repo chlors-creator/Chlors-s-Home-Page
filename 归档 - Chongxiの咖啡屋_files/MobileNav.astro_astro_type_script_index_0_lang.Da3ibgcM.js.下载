@@ -1,0 +1,1 @@
+import{i as e,r as t}from"./nav-state.DeBtrG3E.js";document.addEventListener(`click`,n=>{let r=n.target.closest(`[data-action]`);if(!r)return;let i=r.dataset.action;i===`open-nav`?t():i===`open-search`&&e()});
