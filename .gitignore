@@ -6,3 +6,4 @@ dist/
 !.env.example
 .wrangler/
 *.log
+status-reporter/config.json

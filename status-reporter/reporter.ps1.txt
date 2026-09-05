@@ -1,0 +1,32 @@
+param([string]$ConfigPath = (Join-Path $PSScriptRoot 'config.json'))
+$ErrorActionPreference = 'Stop'
+Add-Type -AssemblyName System.Runtime.WindowsRuntime
+$script:asTaskMethods = [System.WindowsRuntimeSystemExtensions].GetMethods() | Where-Object Name -eq 'AsTask'
+function Await-WinRt($Operation, [Type]$ResultType) {
+  $method = $script:asTaskMethods | Where-Object { $_.IsGenericMethod -and $_.GetParameters().Count -eq 1 } | Select-Object -First 1
+  $task = $method.MakeGenericMethod($ResultType).Invoke($null, @($Operation)); $task.Wait(); return $task.Result
+}
+function Get-NeteaseStatus {
+  if (-not (Get-Process cloudmusic -ErrorAction SilentlyContinue)) { return @{ state = 'offline'; song = $null } }
+  try {
+    $managerType = [Windows.Media.Control.GlobalSystemMediaTransportControlsSessionManager, Windows.Media.Control, ContentType = WindowsRuntime]
+    $manager = Await-WinRt ($managerType::RequestAsync()) $managerType
+    $session = $manager.GetSessions() | Where-Object { $_.SourceAppUserModelId -match 'cloudmusic|netease|orpheus' } | Select-Object -First 1
+    if (-not $session) { return @{ state = 'online'; song = $null } }
+    $propertiesType = [Windows.Media.Control.GlobalSystemMediaTransportControlsSessionMediaProperties, Windows.Media.Control, ContentType = WindowsRuntime]
+    $properties = Await-WinRt ($session.TryGetMediaPropertiesAsync()) $propertiesType
+    if ($session.GetPlaybackInfo().PlaybackStatus.ToString() -eq 'Playing' -and $properties.Title) { return @{ state = 'playing'; song = $properties.Title } }
+  } catch { }
+  return @{ state = 'online'; song = $null }
+}
+if (-not (Test-Path -LiteralPath $ConfigPath)) { throw "找不到配置文件：$ConfigPath" }
+$config = Get-Content -Raw -LiteralPath $ConfigPath | ConvertFrom-Json
+$endpoint = $config.siteUrl.TrimEnd('/') + '/api/status'
+while ($true) {
+  try {
+    $music = Get-NeteaseStatus
+    $payload = @{ steamOnline = [bool](Get-Process steam -ErrorAction SilentlyContinue); neteaseState = $music.state; song = $music.song } | ConvertTo-Json -Compress
+    Invoke-RestMethod -Method Post -Uri $endpoint -Headers @{ Authorization = "Bearer $($config.token)" } -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($payload)) | Out-Null
+  } catch { }
+  Start-Sleep -Seconds 15
+}
