@@ -1,4 +1,16 @@
 ---
 const { playlist, tracks } = Astro.props;
+const manifest = JSON.stringify(tracks);
 ---
-<section data-music-player data-playlist-slug={playlist.slug} data-track-manifest={JSON.stringify(tracks)} aria-label={`${playlist.title}播放器`}><div data-player-title>{tracks.length ? tracks[0].title : '暂无歌曲'}</div>{tracks.length ? <ol data-track-list>{tracks.map((track) => <li><button type="button">{track.title}<small>{track.artist}</small><span>{track.durationLabel}</span></button></li>)}</ol> : <p>暂无歌曲，请将 MP3 放入对应目录</p>}</section>
+<section class="music-player" data-music-player data-playlist-slug={playlist.slug} data-track-manifest={manifest} aria-label={`${playlist.title}播放器`}>
+  <div class="player-surface">
+    <div class="player-heading"><span class="player-kicker">NOW PLAYING / {playlist.title}</span><strong data-player-title>{tracks.length ? tracks[0].title : '暂无歌曲'}</strong><span data-player-artist>{tracks.length ? tracks[0].artist : '—'}</span></div>
+    <div class="player-controls">
+      <button class="mode-button" type="button" data-mode-button aria-label="播放模式" title="播放模式">列表循环</button>
+      <div class="transport-controls"><button type="button" data-prev aria-label="上一首" title="上一首">↶</button><button class="play-button" type="button" data-play-pause aria-label="播放" title="播放">▶</button><button type="button" data-next aria-label="下一首" title="下一首">↷</button></div>
+      <label class="volume-control" aria-label="音量"><span>VOL</span><input data-volume type="range" min="0" max="1" step="0.01" value="0.8" aria-label="音量" /></label>
+    </div>
+    <div class="progress-control"><div class="progress-rail" data-progress tabindex="0" role="slider" aria-label="播放进度" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><span data-progress-fill></span><span data-progress-thumb></span></div><div class="time-labels"><span data-elapsed>0:00</span><span data-duration>0:00</span></div></div>
+  </div>
+  {tracks.length ? <ol class="track-list" data-track-list>{tracks.map((track, index) => <li data-track-index={index}><button type="button"><img src={track.cover} alt="" loading="lazy" /><span class="track-copy"><strong>{track.title}</strong><small>{track.artist}</small></span><time>{track.durationLabel}</time></button></li>)}</ol> : <p class="empty-state">暂无歌曲，请将 MP3 放入对应目录</p>}
+</section>
