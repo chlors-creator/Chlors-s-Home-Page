@@ -1,5 +1,6 @@
 ---
-const { playlist, tracks } = Astro.props;
+interface Track { title: string; artist: string; cover: string; durationLabel: string; src: string; }
+const { playlist, tracks } = Astro.props as { playlist: { slug: string; title: string }; tracks: Track[] };
 const manifest = JSON.stringify(tracks);
 ---
 <section class="music-player" data-music-player data-playlist-slug={playlist.slug} data-track-manifest={manifest} aria-label={`${playlist.title}播放器`}>
@@ -14,3 +15,4 @@ const manifest = JSON.stringify(tracks);
   </div>
   {tracks.length ? <ol class="track-list" data-track-list>{tracks.map((track, index) => <li data-track-index={index}><button type="button"><img src={track.cover} alt="" loading="lazy" /><span class="track-copy"><strong>{track.title}</strong><small>{track.artist}</small></span><time>{track.durationLabel}</time></button></li>)}</ol> : <p class="empty-state">暂无歌曲，请将 MP3 放入对应目录</p>}
 </section>
+<script src="../scripts/music-player.ts"></script>
