@@ -24,6 +24,11 @@
 }
 
 .playlist-electronic::after { background-image: url('/playlist-covers/electronic.jpg'); }
+.playlist-electronic::after {
+  left: 52%;
+  background-size: auto 100%;
+  background-position: right center;
+}
 .playlist-japanese-pop::after { background-image: url('/playlist-covers/japanese-pop.webp'); }
 .playlist-chinese-pop::after { background-image: url('/playlist-covers/chinese-pop.jpg'); }
 .playlist-post-rock-punk::after { background-image: url('/playlist-covers/post-rock-punk.webp'); }
