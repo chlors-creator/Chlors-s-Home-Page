@@ -23,7 +23,7 @@
   transform: translateX(0);
 }
 
-.playlist-electronic::after { background-image: url('/playlist-covers/electronic.jpg'); }
+.playlist-electronic::after { background-image: url('/playlist-covers/electronic.webp'); }
 .playlist-electronic::after {
   left: 52%;
   background-size: auto 100%;
