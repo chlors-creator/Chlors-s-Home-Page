@@ -1,0 +1,5 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { PLAYLISTS } from '../data/playlists';
+---
+<BaseLayout title="歌单"><header class="report-head"><div><p class="eyebrow">CURATED PLAYLISTS / {String(PLAYLISTS.length).padStart(2,'0')}</p><h1>歌单</h1></div></header><section class="topic-grid">{PLAYLISTS.map((playlist,index)=><a class="topic-card" href={`/playlists/${playlist.slug}/`}><span>PLAYLIST_{String(index+1).padStart(3,'0')}</span><h2>{playlist.title}</h2><p>{playlist.description}</p><i>OPEN PLAYLIST →</i></a>)}</section></BaseLayout>

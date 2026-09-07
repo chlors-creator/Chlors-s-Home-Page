@@ -1,0 +1,4 @@
+---
+const { playlist, tracks } = Astro.props;
+---
+<section data-music-player data-playlist-slug={playlist.slug} data-track-manifest={JSON.stringify(tracks)} aria-label={`${playlist.title}播放器`}><div data-player-title>{tracks.length ? tracks[0].title : '暂无歌曲'}</div>{tracks.length ? <ol data-track-list>{tracks.map((track) => <li><button type="button">{track.title}<small>{track.artist}</small><span>{track.durationLabel}</span></button></li>)}</ol> : <p>暂无歌曲，请将 MP3 放入对应目录</p>}</section>

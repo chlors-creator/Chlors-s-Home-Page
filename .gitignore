@@ -7,3 +7,6 @@ dist/
 .wrangler/
 *.log
 status-reporter/config.json
+public/generated/music-covers/*
+!public/generated/music-covers/.gitkeep
+!public/generated/music-covers/default.svg

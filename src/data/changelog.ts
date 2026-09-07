@@ -7,6 +7,18 @@ export interface ChangeLogEntry {
 
 export const changeLog: ChangeLogEntry[] = [
   {
+    slug: 'improve-presence-and-links',
+    title: '完善状态上报与友链页面',
+    appliedAt: '2026-09-07T16:48:00+08:00',
+    details: [
+      '侧边栏新增 Steam 客户端在线状态与网易云音乐播放状态。',
+      '本地状态上报器改为每 5 秒更新，并提供桌面快捷方式用于休眠后手动重启。',
+      '网易云歌曲名统一使用 UTF-8 传输，支持法语、西班牙语、俄语、日语及其他 Unicode 字符。',
+      '友链页面改为与专题页面一致的卡片网格设计。',
+      '新增“Phaleristics in China”友链，描述为“勋章中国·论坛”。',
+    ],
+  },
+  {
     slug: 'persist-avatar-and-limit-edge-line',
     title: '优化头像跨页加载',
     appliedAt: '2026-09-05T13:10:00+08:00',
