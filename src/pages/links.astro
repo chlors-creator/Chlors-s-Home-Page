@@ -1,5 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-const links=[['乃春的Github主页','我的个人站点与内容档案。','https://github.com/'],['朋友的站点','在这里填写对方的网站描述。','#'],['Phaleristics in China','勋章中国·论坛','https://forum.phaleric.com/']];
+const links=[['乃春的Github主页','chlors-creator','https://github.com/'],['朋友的站点','在这里填写对方的网站描述。','#'],['Phaleristics in China','勋章中国·论坛','https://forum.phaleric.com/']];
 ---
 <BaseLayout title="友链"><header class="report-head"><div><p class="eyebrow">CONNECTED NODES / {String(links.length).padStart(2,'0')}</p><h1>友链</h1></div></header><section class="topic-grid">{links.map((link,i)=><a class:list={['topic-card', link[0] === '乃春的Github主页' && 'github-link', link[0] === 'Phaleristics in China' && 'phaleristics-link']} href={link[2]} target={link[2].startsWith('http')?'_blank':undefined} rel={link[2].startsWith('http')?'noopener noreferrer':undefined}><span>NODE_{String(i+1).padStart(3,'0')} // SYNC_OK</span><h2>{link[0]}</h2><p>{link[1]}</p><i>OPEN NODE →</i></a>)}</section></BaseLayout>
