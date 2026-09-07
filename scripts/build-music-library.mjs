@@ -7,6 +7,7 @@ import { parseFile } from 'music-metadata';
 const PROJECT_ROOT = resolve(fileURLToPath(new URL('..', import.meta.url)));
 const PLAYLISTS = [
   ['electronic', 'electronic'], ['japanese-pop', 'japanese-pop'],
+  ['vocaloid', 'vocaloid'],
   ['chinese-pop', 'chinese-pop'], ['post-rock-punk', 'post-rock-punk'],
   ['phonk', 'phonk'], ['math-rock', 'math-rock'],
   ['midwest-emo', 'midwest-emo'], ['piano', 'piano'],

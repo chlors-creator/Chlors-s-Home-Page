@@ -28,6 +28,7 @@ test('returns an empty track array for each playlist when the music tree is empt
     assert.deepEqual(Object.keys(library.playlists), [
       'electronic',
       'japanese-pop',
+      'vocaloid',
       'chinese-pop',
       'post-rock-punk',
       'phonk',
@@ -35,7 +36,7 @@ test('returns an empty track array for each playlist when the music tree is empt
       'midwest-emo',
       'piano',
     ]);
-    assert.deepEqual(Object.values(library.playlists), Array(8).fill([]));
+    assert.deepEqual(Object.values(library.playlists), Array(9).fill([]));
   } finally {
     await rm(musicRoot, { recursive: true, force: true });
   }

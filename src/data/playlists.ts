@@ -19,6 +19,12 @@ export const PLAYLISTS: readonly PlaylistDefinition[] = [
     directory: 'japanese-pop',
   },
   {
+    slug: 'vocaloid',
+    title: 'Vocaloid',
+    description: 'Vocaloid 音乐歌单。',
+    directory: 'vocaloid',
+  },
+  {
     slug: 'chinese-pop',
     title: '华语流行',
     description: '华语流行音乐歌单。',

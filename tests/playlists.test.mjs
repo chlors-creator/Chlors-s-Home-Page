@@ -11,12 +11,13 @@ const { PLAYLISTS, getPlaylist } = await import(
   `data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`,
 );
 
-test('exposes the eight playlist categories in display order', () => {
+test('exposes the nine playlist categories in display order', () => {
   assert.deepEqual(
     PLAYLISTS.map(({ slug, title }) => [slug, title]),
     [
       ['electronic', '电音'],
       ['japanese-pop', '日系流行'],
+      ['vocaloid', 'Vocaloid'],
       ['chinese-pop', '华语流行'],
       ['post-rock-punk', '后摇&后朋'],
       ['phonk', 'Phonk'],
