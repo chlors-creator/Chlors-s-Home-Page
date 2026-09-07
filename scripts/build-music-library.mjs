@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { mkdir, readdir, writeFile } from 'node:fs/promises';
+import { mkdir, readdir, stat, writeFile } from 'node:fs/promises';
 import { basename, extname, join, relative, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parseFile } from 'music-metadata';
@@ -39,7 +39,7 @@ export function parseFilename(fileName) {
 
 function readArtists(common, fallbackArtist) {
   const artists = Array.isArray(common.artists) ? common.artists : [];
-  const values = [...artists, common.artist, common.albumartist, fallbackArtist]
+  const values = (artists.length ? artists : [common.artist, common.albumartist, fallbackArtist])
     .map(cleanText)
     .filter(Boolean);
   return [...new Set(values)].join(' / ') || '未知艺术家';
@@ -88,6 +88,11 @@ export async function scanMusicLibrary({
 
     for (const filePath of files) {
       try {
+        const fileInfo = await stat(filePath);
+        if (fileInfo.size < 1024) {
+          console.warn(`Skipping empty MP3 placeholder ${filePath}`);
+          continue;
+        }
         const metadata = await parseFile(filePath, { duration: true });
         const fallback = parseFilename(filePath);
         const image = metadata.common.picture?.find((picture) => picture?.data?.length);
