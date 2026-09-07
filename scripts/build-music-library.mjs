@@ -22,6 +22,29 @@ function imageExtension(mimeType) {
   return subtype === 'jpeg' ? 'jpg' : subtype?.replace(/[^a-z0-9]/g, '') || 'jpg';
 }
 
+function cleanText(value) {
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+export function parseFilename(fileName) {
+  const stem = basename(fileName, extname(fileName)).trim();
+  const separator = stem.lastIndexOf(' - ');
+  if (separator > 0) {
+    const artist = stem.slice(0, separator).replace(/\s*,\s*/g, ' / ').trim();
+    const title = stem.slice(separator + 3).trim();
+    return { artist, title };
+  }
+  return { artist: '', title: stem };
+}
+
+function readArtists(common, fallbackArtist) {
+  const artists = Array.isArray(common.artists) ? common.artists : [];
+  const values = [...artists, common.artist, common.albumartist, fallbackArtist]
+    .map(cleanText)
+    .filter(Boolean);
+  return [...new Set(values)].join(' / ') || '未知艺术家';
+}
+
 async function findMp3Files(directory) {
   try {
     const entries = await readdir(directory, { withFileTypes: true });
@@ -47,7 +70,7 @@ export function formatDuration(seconds) {
 }
 
 export function fallbackTitle(fileName) {
-  return basename(fileName, extname(fileName));
+  return parseFilename(fileName).title;
 }
 
 export async function scanMusicLibrary({
@@ -66,10 +89,11 @@ export async function scanMusicLibrary({
     for (const filePath of files) {
       try {
         const metadata = await parseFile(filePath, { duration: true });
-        const image = metadata.common.picture?.[0];
+        const fallback = parseFilename(filePath);
+        const image = metadata.common.picture?.find((picture) => picture?.data?.length);
         let cover = '/generated/music-covers/default.svg';
         if (image?.data) {
-          const coverName = `${createHash('sha1').update(image.data).digest('hex')}.${imageExtension(image.format)}`;
+          const coverName = `${createHash('sha1').update(image.data).digest('hex')}.${imageExtension(image.format || image.mime)}`;
           await writeFile(join(coversRoot, coverName), image.data);
           cover = `/generated/music-covers/${coverName}`;
         }
@@ -79,8 +103,8 @@ export async function scanMusicLibrary({
           id: createHash('sha1').update(`${slug}/${relativePath}`).digest('hex'),
           src: `/music/${encodeUrlPath(directory)}/${encodeUrlPath(relativePath)}`,
           cover,
-          title: metadata.common.title?.trim() || fallbackTitle(filePath),
-          artist: metadata.common.artist?.trim() || '未知艺术家',
+          title: cleanText(metadata.common.title) || fallback.title,
+          artist: readArtists(metadata.common, fallback.artist),
           duration,
           durationLabel: formatDuration(duration),
         });
