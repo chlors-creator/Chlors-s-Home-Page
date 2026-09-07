@@ -1,4 +1,5 @@
 (() => {
+  const statusEndpoint = 'https://status.chlors.cn/api/status';
   const render = (status) => {
     const steam = document.querySelector('[data-presence="steam"]');
     const netease = document.querySelector('[data-presence="netease"]');
@@ -12,7 +13,7 @@
   };
   const refresh = async () => {
     try {
-      const response = await fetch('/api/status', { cache: 'no-store' });
+      const response = await fetch(`${statusEndpoint}?t=${Date.now()}`, { cache: 'no-store' });
       if (!response.ok) throw new Error();
       render(await response.json());
     } catch { render({ steamOnline: false, neteaseState: 'offline' }); }
