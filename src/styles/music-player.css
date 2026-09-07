@@ -5,3 +5,7 @@
 .mode-button .mode-arrow{fill:currentColor;stroke:none}
 .mode-button:hover{color:var(--ink)}
 @media(max-width:760px){.mode-button{justify-self:center}}
+.play-button{padding:0;line-height:0}
+.play-button svg{display:block;width:22px;height:22px;fill:currentColor;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.play-button svg[hidden]{display:none}
+.play-button svg[data-play-icon="pause"]{width:20px;height:20px;fill:none}
