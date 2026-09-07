@@ -1,9 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import MusicPlayer from '../../components/MusicPlayer.astro';
-import { PLAYLISTS, getPlaylist } from '../../data/playlists';
+import { PLAYLISTS } from '../../data/playlists';
 import library from '../../generated/music-library.json';
 export function getStaticPaths() { return PLAYLISTS.map((playlist) => ({ params: { slug: playlist.slug }, props: { playlist, tracks: library.playlists[playlist.slug] ?? [] } })); }
 const { playlist, tracks } = Astro.props;
 ---
-<BaseLayout title={playlist.title}><a class="back-link" href="/playlists/" aria-label="返回歌单">← 返回歌单</a><header class="report-head"><div><p class="eyebrow">PLAYLIST / {playlist.slug}</p><h1>{playlist.title}</h1><p>{playlist.description}</p></div></header><MusicPlayer playlist={playlist} tracks={tracks} /></BaseLayout>
+<BaseLayout title={playlist.title}><a class="back-link" href="/playlists/" aria-label="返回歌单">← 返回歌单</a><MusicPlayer playlist={playlist} tracks={tracks} /></BaseLayout>
