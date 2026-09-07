@@ -44,3 +44,5 @@ html[data-theme-choice="black"] .topic-card[class*="playlist-"]::before {
 @media (prefers-reduced-motion: reduce) {
   .topic-card[class*="playlist-"]::after { transition: none; }
 }
+
+.playlist-vocaloid::after { background-image: url('/playlist-covers/vocaloid.jpg'); }
