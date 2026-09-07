@@ -19,7 +19,7 @@
   };
   if (!window.__presenceReady) {
     window.__presenceReady = true;
-    window.setInterval(refresh, 15_000);
+    window.setInterval(refresh, 5_000);
     document.addEventListener('astro:after-swap', refresh);
   }
   try {

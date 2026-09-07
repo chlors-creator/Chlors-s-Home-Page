@@ -30,4 +30,4 @@ async function report() {
 }
 
 report();
-setInterval(report, 15000);
+setInterval(report, 5000);
