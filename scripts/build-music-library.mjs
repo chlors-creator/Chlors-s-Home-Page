@@ -14,7 +14,10 @@ const PLAYLISTS = [
 ];
 
 function encodeUrlPath(path) {
-  return path.split(/[\\/]+/).map(encodeURIComponent).join('/');
+  return path
+    .split(/[\\/]+/)
+    .map((segment) => encodeURIComponent(segment).replace(/%2C/gi, ','))
+    .join('/');
 }
 
 function imageExtension(mimeType) {
