@@ -9,7 +9,7 @@ const endpoint = `${config.siteUrl.replace(/\/+$/, '')}/api/status`;
 const probe = join(__dirname, 'media-probe.ps1');
 
 function run(file, args) {
-  return new Promise((resolve) => execFile(file, args, { windowsHide: true, timeout: 10000 }, (error, stdout) => resolve(error ? '' : stdout.trim())));
+  return new Promise((resolve) => execFile(file, args, { windowsHide: true, timeout: 10000, encoding: 'utf8' }, (error, stdout) => resolve(error ? '' : stdout.trim())));
 }
 
 async function report() {
