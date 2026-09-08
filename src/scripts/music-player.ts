@@ -155,7 +155,7 @@ function initialize(root: HTMLElement): void {
       const deltaX = first && last ? first.left - last.left : 0; const deltaY = first && last ? first.top - last.top : 18;
       const startFrame = { transform: `translate(${deltaX}px,${deltaY}px)`, opacity: first ? .72 : 0 };
       const endFrame = { transform: 'translate(0,0)', opacity: 1 };
-      return part.animate(reverse ? [endFrame, startFrame] : [startFrame, endFrame], { duration: 320, delay: index * 24, easing: 'cubic-bezier(.22,.8,.24,1)', fill: 'backwards' });
+      return part.animate(reverse ? [endFrame, startFrame] : [startFrame, endFrame], { duration: 320, delay: index * 24, easing: 'cubic-bezier(.22,.8,.24,1)', fill: reverse ? 'forwards' : 'backwards' });
     });
   };
   const toggleExpanded = async () => {
@@ -172,8 +172,9 @@ function initialize(root: HTMLElement): void {
     } else {
       const beforeParts = partRects(); const end = root.getBoundingClientRect(); root.dataset.expanded = 'false'; document.documentElement.classList.remove('player-expanded'); const target = root.getBoundingClientRect(); const afterParts = partRects(); root.dataset.expanded = 'true'; document.documentElement.classList.add('player-expanded');
       const inset = `${Math.max(0, target.top - end.top)}px ${Math.max(0, end.right - target.right)}px ${Math.max(0, end.bottom - target.bottom)}px ${Math.max(0, target.left - end.left)}px`;
-      if (!prefersReducedMotion()) { playerAnimation = root.animate([{ clipPath: 'inset(0 round var(--radius) 0 0 0)', opacity: 1 }, { clipPath: `inset(${inset} round 24px)`, opacity: .82 }], { duration: 420, easing: 'cubic-bezier(.4,0,.2,1)' }); animateParts(afterParts, beforeParts, true); await Promise.all([playerAnimation.finished, ...componentAnimations.map((animation) => animation.finished)].map((finished) => finished.catch(() => {}))); }
+      if (!prefersReducedMotion()) { playerAnimation = root.animate([{ clipPath: 'inset(0 round var(--radius) 0 0 0)', opacity: 1 }, { clipPath: `inset(${inset} round 24px)`, opacity: .82 }], { duration: 420, easing: 'cubic-bezier(.4,0,.2,1)', fill: 'forwards' }); animateParts(afterParts, beforeParts, true); await Promise.all([playerAnimation.finished, ...componentAnimations.map((animation) => animation.finished)].map((finished) => finished.catch(() => {}))); }
       root.dataset.expanded = 'false'; document.documentElement.classList.remove('player-expanded'); if (lyrics) lyrics.hidden = true;
+      stopAnimations();
     }
     setExpandLabel(expanded);
   };
