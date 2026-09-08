@@ -7,6 +7,17 @@ export interface ChangeLogEntry {
 
 export const changeLog: ChangeLogEntry[] = [
   {
+    slug: 'add-vocaloid-playlist-and-fix-music-upload',
+    title: '新增 Vocaloid 歌单并修复音乐上传',
+    appliedAt: '2026-09-08T17:30:22+08:00',
+    details: [
+      '歌单新增 Vocaloid 分类及独立页面。',
+      '控制台上传音乐时可选择 Vocaloid 歌单。',
+      '修复音乐上传接口未识别 Vocaloid、导致上传失败的问题。',
+      '音乐库生成流程同步加入 Vocaloid 目录。',
+    ],
+  },
+  {
     slug: 'add-link-and-playlist-hover-art',
     title: '为友链与歌单加入悬停图案',
     appliedAt: '2026-09-08T17:31:00+08:00',
