@@ -21,7 +21,7 @@ export const PLAYLISTS: readonly PlaylistDefinition[] = [
   {
     slug: 'vocaloid',
     title: 'Vocaloid',
-    description: 'Vocaloid 音乐歌单。',
+    description: '术力口，Yamaha开发的虚拟歌姬',
     directory: 'vocaloid',
   },
   {
@@ -33,31 +33,31 @@ export const PLAYLISTS: readonly PlaylistDefinition[] = [
   {
     slug: 'post-rock-punk',
     title: '后摇&后朋',
-    description: '后摇与后朋音乐歌单。',
+    description: '宏大与崩塌，后现代性Lo-fi音乐组合',
     directory: 'post-rock-punk',
   },
   {
     slug: 'phonk',
     title: 'Phonk',
-    description: 'Phonk 音乐歌单。',
+    description: '牛铃，贝斯线与碎片旋律',
     directory: 'phonk',
   },
   {
     slug: 'math-rock',
     title: '数摇',
-    description: '数学摇滚音乐歌单。',
+    description: '不对称拍型、不规则停顿，编曲复杂的实验摇滚',
     directory: 'math-rock',
   },
   {
     slug: 'midwest-emo',
     title: '中西部emo',
-    description: '中西部 emo 音乐歌单。',
+    description: '明亮旋律与忧伤内心，源自美国中西部的情绪摇滚',
     directory: 'midwest-emo',
   },
   {
     slug: 'piano',
     title: 'Piano',
-    description: '钢琴音乐歌单。',
+    description: '轻音乐&轻古典',
     directory: 'piano',
   },
 ];
