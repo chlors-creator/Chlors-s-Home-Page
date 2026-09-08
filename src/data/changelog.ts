@@ -7,6 +7,17 @@ export interface ChangeLogEntry {
 
 export const changeLog: ChangeLogEntry[] = [
   {
+    slug: 'add-link-and-playlist-hover-art',
+    title: '为友链与歌单加入悬停图案',
+    appliedAt: '2026-09-08T17:31:00+08:00',
+    details: [
+      '“乃春的Github主页”友链在悬停时显示 GitHub 图标，并根据页面主题调整图标颜色。',
+      '“Phaleristics in China”友链在悬停时显示对应徽章图案。',
+      '为九个歌单分类配置对应封面，悬停时从卡片右侧显示。',
+      '歌单封面贴合卡片上、下、右侧边缘，左侧使用约 15° 斜边与渐变过渡。',
+    ],
+  },
+  {
     slug: 'improve-presence-and-links',
     title: '完善状态上报与友链页面',
     appliedAt: '2026-09-07T16:48:00+08:00',
