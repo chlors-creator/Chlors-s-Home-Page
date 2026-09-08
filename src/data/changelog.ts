@@ -7,6 +7,17 @@ export interface ChangeLogEntry {
 
 export const changeLog: ChangeLogEntry[] = [
   {
+    slug: 'fix-console-authentication-state',
+    title: '修复控制台登录认证状态',
+    appliedAt: '2026-09-08T22:30:00+08:00',
+    details: [
+      '阻止登录表单触发原生提交，确保账号密码只通过认证接口发送。',
+      '避免初始化认证探测的延迟结果覆盖刚完成的登录状态。',
+      '本地 HTTP 开发环境不再错误设置 Secure Cookie，线上 HTTPS 仍保持 Secure 属性。',
+      '修复音乐上传函数引用未定义提交事件的问题。',
+    ],
+  },
+  {
     slug: 'add-vocaloid-playlist-and-fix-music-upload',
     title: '新增 Vocaloid 歌单并修复音乐上传',
     appliedAt: '2026-09-08T17:30:22+08:00',

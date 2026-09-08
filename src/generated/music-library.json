@@ -1,14 +1,448 @@
 {
-  "generatedAt": "2026-09-08T09:24:07.035Z",
+  "generatedAt": "2026-09-08T15:25:51.235Z",
   "playlists": {
-    "electronic": [],
+    "electronic": [
+      {
+        "id": "98d9d74bf407d0c38f450680e7295c85ae7dba51",
+        "src": "/music/electronic/Milkoi%20-%20Shichirigahama.mp3",
+        "cover": "/generated/music-covers/721458a71db5963f768a68cb91f521729f34d81e.jpg",
+        "title": "Shichirigahama",
+        "artist": "Milkoi",
+        "duration": 231,
+        "durationLabel": "3:51",
+        "lyricsSrc": null
+      }
+    ],
     "japanese-pop": [],
-    "vocaloid": [],
+    "vocaloid": [
+      {
+        "id": "54df8c08d49867e96e09d4ce5411d6d78c9925a3",
+        "src": "/music/vocaloid/-%E7%89%A9%E7%90%86%20-%20STARTEND%EF%BC%88feat.%E8%AF%97%E5%B2%B8%EF%BC%89.mp3",
+        "cover": "/generated/music-covers/67762dd969e4bd37fe9f9c218d889a8334c25930.jpg",
+        "title": "STARTEND（feat.诗岸）",
+        "artist": "-物理",
+        "duration": 152,
+        "durationLabel": "2:32",
+        "lyricsSrc": null
+      },
+      {
+        "id": "e683241039c5ecbbffc1400f66ecc2802d5d73f3",
+        "src": "/music/vocaloid/23.exe%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20Loow.mp3",
+        "cover": "/generated/music-covers/e4979ebbe9506e4001e9704cca7ae87f00eb3c66.jpg",
+        "title": "Loow",
+        "artist": "23.exe",
+        "duration": 277,
+        "durationLabel": "4:37",
+        "lyricsSrc": null
+      },
+      {
+        "id": "5f12842df5f7a7fbb0d54a6d408a24ba4d98defd",
+        "src": "/music/vocaloid/23.exe%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20ochatime.mp3",
+        "cover": "/generated/music-covers/5b204e2360f22395b2a5f49ba8b7e071d3e22561.jpg",
+        "title": "ochatime",
+        "artist": "23.exe",
+        "duration": 233,
+        "durationLabel": "3:53",
+        "lyricsSrc": null
+      },
+      {
+        "id": "5c5123f63024523355e1cfbbaa4b6ec246c4f891",
+        "src": "/music/vocaloid/%E7%A8%B2%E8%91%89%E6%9B%87%2C%E6%AD%8C%E6%84%9B%E3%83%A6%E3%82%AD%20-%20%E3%83%A9%E3%82%B0%E3%83%88%E3%83%AC%E3%82%A4%E3%83%B3.mp3",
+        "cover": "/generated/music-covers/85723bbbfe779e8d290bc467105e644076b7060b.jpg",
+        "title": "ラグトレイン",
+        "artist": "稲葉曇",
+        "duration": 252,
+        "durationLabel": "4:12",
+        "lyricsSrc": null
+      },
+      {
+        "id": "c165ed7158473a773008eb4f2e024171703a6c0e",
+        "src": "/music/vocaloid/%E9%9B%84%E4%B9%8B%E5%8A%A9%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20Awake%20Now.mp3",
+        "cover": "/generated/music-covers/0f51ec2b923552ca9e63e0d98c81894a9ec03511.jpg",
+        "title": "Awake Now",
+        "artist": "雄之助",
+        "duration": 196,
+        "durationLabel": "3:16",
+        "lyricsSrc": null
+      },
+      {
+        "id": "1d78f3e996a7701bfe78554349eeac513bac92da",
+        "src": "/music/vocaloid/Aqu3ra%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20%E8%A7%A3%E3%81%91%E3%81%AA%E3%81%84%E5%A4%8F.mp3",
+        "cover": "/generated/music-covers/03711498d8890dd81c292fd251e72f2dda31999c.jpg",
+        "title": "解けない夏",
+        "artist": "Aqu3ra",
+        "duration": 212,
+        "durationLabel": "3:32",
+        "lyricsSrc": null
+      },
+      {
+        "id": "7b41779ebc0fd5d1327254b2943afc478b82ee04",
+        "src": "/music/vocaloid/Ayase%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20%E3%83%95%E3%82%A3%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%96%E3%83%AB%E3%83%BC.mp3",
+        "cover": "/generated/music-covers/12071fb5abe26e0929e41ae8d49d40c6d82ff106.jpg",
+        "title": "フィクションブルー",
+        "artist": "Ayase",
+        "duration": 215,
+        "durationLabel": "3:35",
+        "lyricsSrc": null
+      },
+      {
+        "id": "fada616d99d6c4651833a530b805eb994b580649",
+        "src": "/music/vocaloid/GUMI%2C%E3%83%A6%E3%83%AA%E3%82%A4%E3%83%BB%E3%82%AB%E3%83%8E%E3%83%B3%20-%20%E3%81%A0%E3%82%8C%E3%81%8B%E3%81%AE%E5%BF%83%E8%87%93%E3%81%AB%E3%81%AA%E3%82%8C%E3%81%9F%E3%81%AA%E3%82%89.mp3",
+        "cover": "/generated/music-covers/6ec0817f85c52601531dde496692de9dd28bdb23.jpg",
+        "title": "だれかの心臓になれたなら",
+        "artist": "GUMI",
+        "duration": 230,
+        "durationLabel": "3:50",
+        "lyricsSrc": null
+      },
+      {
+        "id": "7accc2bbf5a2806d80ddf71fc6ee427c47584e44",
+        "src": "/music/vocaloid/kyiku%2C%E5%8F%AF%E4%B8%8D%2C%E6%98%9F%E7%95%8C%20-%20%E3%83%A1%E3%83%A2%E3%83%AA%E3%83%BC.mp3",
+        "cover": "/generated/music-covers/d9c7f7830a703e185a8fe17c774012023e1d6cc8.jpg",
+        "title": "メモリー",
+        "artist": "kyiku",
+        "duration": 218,
+        "durationLabel": "3:38",
+        "lyricsSrc": null
+      },
+      {
+        "id": "d199882cc676b4c16c26d05179d351c299294d65",
+        "src": "/music/vocaloid/Motohiro%20Nakashima%20-%20Song%20Before%20You%20Came.mp3",
+        "cover": "/generated/music-covers/eb404f450a3f2b3592a5b7ff3b311719b957b0c5.jpg",
+        "title": "Song Before You Came",
+        "artist": "Motohiro Nakashima",
+        "duration": 344,
+        "durationLabel": "5:44",
+        "lyricsSrc": null
+      },
+      {
+        "id": "c4d87e435f096541c8503c4399075f98679ee831",
+        "src": "/music/vocaloid/Mwk%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20Anniversary.mp3",
+        "cover": "/generated/music-covers/7a2a7263c1d7246b0ececa137c9821b24caf1433.jpg",
+        "title": "Anniversary",
+        "artist": "Mwk",
+        "duration": 204,
+        "durationLabel": "3:24",
+        "lyricsSrc": null
+      },
+      {
+        "id": "7c8fe733974943b92ccafc66e2a61dce3036a2b4",
+        "src": "/music/vocaloid/Mwk%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20One%20Day.mp3",
+        "cover": "/generated/music-covers/c77ef34626cc1e14c5fc3194d2a24b16708690d5.jpg",
+        "title": "One Day",
+        "artist": "Mwk",
+        "duration": 288,
+        "durationLabel": "4:48",
+        "lyricsSrc": null
+      },
+      {
+        "id": "9ba442fa36a2cd43c3b9deaf86b668798498afcb",
+        "src": "/music/vocaloid/Neru%2C%E9%8F%A1%E9%9F%B3%E3%83%AA%E3%83%B3%20-%20%E3%83%AD%E3%82%B9%E3%83%88%E3%83%AF%E3%83%B3%E3%81%AE%E5%8F%B7%E5%93%AD.mp3",
+        "cover": "/generated/music-covers/8893f8fdf7d301a48e36591ddc30aa270cb78319.jpg",
+        "title": "ロストワンの号哭",
+        "artist": "Neru",
+        "duration": 217,
+        "durationLabel": "3:37",
+        "lyricsSrc": null
+      },
+      {
+        "id": "ffd4d6a4c79988dee4739b6560228f09ab319f0f",
+        "src": "/music/vocaloid/niqizhuo%2Cyuigot%2C%E7%A8%B2%E8%91%89%E6%9B%87%20-%20Lost%20Umbrella(yuigot%20Remix).mp3",
+        "cover": "/generated/music-covers/83cac1542e80a59db9eaf03bdba9301b306b3fa0.jpg",
+        "title": "Lost Umbrella(yuigot Remix)",
+        "artist": "niqizhuo",
+        "duration": 190,
+        "durationLabel": "3:10",
+        "lyricsSrc": null
+      },
+      {
+        "id": "593cab7de0e9ceb68b61883043071cf29b8839e7",
+        "src": "/music/vocaloid/PoppoOVO%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%2C%E9%87%8D%E9%9F%B3%E3%83%86%E3%83%88%20-%20%E5%99%A9%E6%A2%A6Nightmare%EF%BC%88Feat.%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%2C%E9%87%8D%E9%9F%B3%E3%83%86%E3%83%88%2C%E9%9F%B3%E8%A1%97%E3%82%A6%E3%83%8A%EF%BC%89.mp3",
+        "cover": "/generated/music-covers/5dee45d87943c206564326f3ee9f14ab75ee3008.jpg",
+        "title": "噩梦Nightmare（Feat.初音ミク,重音テト,音街ウナ）",
+        "artist": "PoppoOVO",
+        "duration": 184,
+        "durationLabel": "3:04",
+        "lyricsSrc": null
+      },
+      {
+        "id": "99ffa90fc046527928fe9c437a51d5f3a249fb86",
+        "src": "/music/vocaloid/Wonder-K%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20Stuck.mp3",
+        "cover": "/generated/music-covers/22ced3fad35133a941212693d8eb47fe37418617.jpg",
+        "title": "Stuck",
+        "artist": "Wonder-K",
+        "duration": 254,
+        "durationLabel": "4:14",
+        "lyricsSrc": null
+      },
+      {
+        "id": "8648578ff6ba680f43f8a6b6ff4a6f5098205d28",
+        "src": "/music/vocaloid/wowaka%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20%E3%81%9B%E3%81%8B%E3%81%84%E3%81%AE%E3%81%99%E3%81%B9%E3%81%A6.mp3",
+        "cover": "/generated/music-covers/897d4836f7ac762d6a33fa53f7b5a9a38dc583be.jpg",
+        "title": "せかいのすべて",
+        "artist": "wowaka",
+        "duration": 144,
+        "durationLabel": "2:24",
+        "lyricsSrc": null
+      },
+      {
+        "id": "1fe78ae2f195b6c54eb9c6eec47f07985783b9d9",
+        "src": "/music/vocaloid/wowaka%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20%E3%83%86%E3%83%8E%E3%83%92%E3%83%A9.mp3",
+        "cover": "/generated/music-covers/d16f8d925b59af529673c658241b8e49b57c70d0.jpg",
+        "title": "テノヒラ",
+        "artist": "wowaka",
+        "duration": 277,
+        "durationLabel": "4:37",
+        "lyricsSrc": null
+      },
+      {
+        "id": "f5034fbc46b2138be6f14557085ff5af046cd44c",
+        "src": "/music/vocaloid/%E3%82%B5%E3%82%B5%E3%83%8E%E3%83%9E%E3%83%AA%E3%82%A4%2C%E3%81%AD%E3%81%93%E3%81%BC%E3%83%BC%E3%82%8D%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20%E8%87%AA%E5%82%B7%E7%84%A1%E8%89%B2.mp3",
+        "cover": "/generated/music-covers/e9036ae3b69860e24fc591c22d0c791c08d9a542.jpg",
+        "title": "自傷無色",
+        "artist": "ササノマリイ",
+        "duration": 218,
+        "durationLabel": "3:38",
+        "lyricsSrc": null
+      },
+      {
+        "id": "28e3a4436c26770853365e38df2f0c82e811486a",
+        "src": "/music/vocaloid/%E3%81%AD%E3%81%93%E3%81%BC%E3%83%BC%E3%82%8D%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20%E6%88%AF%E8%A8%80%E3%82%B9%E3%83%94%E3%83%BC%E3%82%AB%E3%83%BC.mp3",
+        "cover": "/generated/music-covers/8ff23a33ff68a539e12fae4e97e3bf46562c11a7.jpg",
+        "title": "戯言スピーカー",
+        "artist": "ねこぼーろ",
+        "duration": 249,
+        "durationLabel": "4:09",
+        "lyricsSrc": null
+      },
+      {
+        "id": "b3e6d38221ae05b664a0e711d9c2efc56d007576",
+        "src": "/music/vocaloid/%E3%81%AD%E3%81%93%E3%81%BC%E3%83%BC%E3%82%8D%2CIA%20-%20%E3%81%B2%E3%81%AD%E3%81%8F%E3%82%8C%E3%83%8D%E3%82%B8%E3%81%A8%E9%9B%A8.mp3",
+        "cover": "/generated/music-covers/c140359168ab7f2e174d21414cb67d8243fb9f16.jpg",
+        "title": "ひねくれネジと雨",
+        "artist": "ねこぼーろ",
+        "duration": 278,
+        "durationLabel": "4:38",
+        "lyricsSrc": null
+      }
+    ],
     "chinese-pop": [],
     "post-rock-punk": [],
     "phonk": [],
-    "math-rock": [],
+    "math-rock": [
+      {
+        "id": "419d7405e2cca6783c38ea9ab8383b37e59562c7",
+        "src": "/music/math-rock/8m%20-%20Slow%20Dance.mp3",
+        "cover": "/generated/music-covers/fdbf4a746688a1745b4883a4ef3c9a2d646252f6.jpg",
+        "title": "Slow Dance",
+        "artist": "8m",
+        "duration": 256,
+        "durationLabel": "4:16",
+        "lyricsSrc": "/music/math-rock/8m%20-%20Slow%20Dance.lrc"
+      },
+      {
+        "id": "8d7cd7123d6a7af0744214d22648ee9e5ba63b64",
+        "src": "/music/math-rock/%E5%AE%87%E5%AE%99%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B%20-%20Pyramid.mp3",
+        "cover": "/generated/music-covers/e090fe16fbe36b639825852481fc4a8f2ca7139b.jpg",
+        "title": "Pyramid",
+        "artist": "宇宙コンビニ",
+        "duration": 304,
+        "durationLabel": "5:04",
+        "lyricsSrc": "/music/math-rock/%E5%AE%87%E5%AE%99%E3%82%B3%E3%83%B3%E3%83%93%E3%83%8B%20-%20Pyramid.lrc"
+      },
+      {
+        "id": "4ebb5f6f6ecab1f9ee9ff330d03c8ca9e0da5fb6",
+        "src": "/music/math-rock/A%20Picture%20Of%20Her%20-%20No%20exit.mp3",
+        "cover": "/generated/music-covers/9ac263a15d81546843d960b2f4b62b75ea7c4d66.jpg",
+        "title": "No exit",
+        "artist": "A Picture Of Her",
+        "duration": 269,
+        "durationLabel": "4:29",
+        "lyricsSrc": "/music/math-rock/A%20Picture%20Of%20Her%20-%20No%20exit.lrc"
+      },
+      {
+        "id": "de601f670054035613501c7bae56854f30bc9c8f",
+        "src": "/music/math-rock/A%20Picture%20Of%20Her%20-%20picnic-perfect.mp3",
+        "cover": "/generated/music-covers/5764d69bb0550cf5fc446dc3fd28d188bccd0d5f.jpg",
+        "title": "picnic-perfect",
+        "artist": "A Picture Of Her",
+        "duration": 391,
+        "durationLabel": "6:31",
+        "lyricsSrc": "/music/math-rock/A%20Picture%20Of%20Her%20-%20picnic-perfect.lrc"
+      },
+      {
+        "id": "15f3ebe51f02843d1ef1c9a2ce8e82311c526406",
+        "src": "/music/math-rock/Chinese%20Football%20-%20%E7%94%B5%E5%8A%A8%E5%B0%91%E5%A5%B3.mp3",
+        "cover": "/generated/music-covers/fb08f9ada5680c099db9e3a2dd83152cfdae0c7f.jpg",
+        "title": "电动少女",
+        "artist": "Chinese Football",
+        "duration": 310,
+        "durationLabel": "5:10",
+        "lyricsSrc": "/music/math-rock/Chinese%20Football%20-%20%E7%94%B5%E5%8A%A8%E5%B0%91%E5%A5%B3.lrc"
+      },
+      {
+        "id": "abbfb7c117cc50d60bb496d2eb3c1c3375034096",
+        "src": "/music/math-rock/dinner%20-%20reorder.mp3",
+        "cover": "/generated/music-covers/e03bf05ac7265bfd961b64e9d0e2052388bf15d4.jpg",
+        "title": "re:order",
+        "artist": "dinner",
+        "duration": 428,
+        "durationLabel": "7:08",
+        "lyricsSrc": "/music/math-rock/dinner%20-%20reorder.lrc"
+      },
+      {
+        "id": "6dee3d3fdab7fc7b4727e85b782dc4ab01fb86c9",
+        "src": "/music/math-rock/DJ%20OKAWARI%2Cfox%20capture%20plan%20-%20Lightning%20Moment%20feat.fox%20capture%20plan.mp3",
+        "cover": "/generated/music-covers/d450b60dbcc10a5f55c93f7d38f124ce85141125.jpg",
+        "title": "Lightning Moment feat.fox capture plan",
+        "artist": "DJ OKAWARI",
+        "duration": 279,
+        "durationLabel": "4:39",
+        "lyricsSrc": "/music/math-rock/DJ%20OKAWARI%2Cfox%20capture%20plan%20-%20Lightning%20Moment%20feat.fox%20capture%20plan.lrc"
+      },
+      {
+        "id": "6a953e045bcad0054258d26238a066388bc87828",
+        "src": "/music/math-rock/Fayzz%20-%20%E6%B0%B8%E6%81%92%E7%9A%84%E5%A5%A5%E5%8F%A4%E6%96%AF%E9%83%BD.mp3",
+        "cover": "/generated/music-covers/05ce89a5cf9e26e3117399e1e862a20f8be09088.jpg",
+        "title": "永恒的奥古斯都",
+        "artist": "Fayzz",
+        "duration": 301,
+        "durationLabel": "5:01",
+        "lyricsSrc": "/music/math-rock/Fayzz%20-%20%E6%B0%B8%E6%81%92%E7%9A%84%E5%A5%A5%E5%8F%A4%E6%96%AF%E9%83%BD.lrc"
+      },
+      {
+        "id": "81edb8b1c5a6e1e6bc0e89a40f292efb7a3b8c9b",
+        "src": "/music/math-rock/How%20to%20count%20one%20to%20ten%20-%20concrete%20foundation.mp3",
+        "cover": "/generated/music-covers/c11d4dbcf04dca875e3169fa54a6d407573d6705.jpg",
+        "title": "concrete foundation",
+        "artist": "How to count one to ten",
+        "duration": 352,
+        "durationLabel": "5:52",
+        "lyricsSrc": "/music/math-rock/How%20to%20count%20one%20to%20ten%20-%20concrete%20foundation.lrc"
+      },
+      {
+        "id": "9ef7a31d2dd8fde345362cc44da23da3cf73810c",
+        "src": "/music/math-rock/LOW-PASS%20-%20fog.mp3",
+        "cover": "/generated/music-covers/6dd01b0ac844430d9a84600020c7dc3d55b66059.jpg",
+        "title": "fog",
+        "artist": "LOW-PASS",
+        "duration": 295,
+        "durationLabel": "4:55",
+        "lyricsSrc": "/music/math-rock/LOW-PASS%20-%20fog.lrc"
+      },
+      {
+        "id": "c578fc820f1ed1cbee714e2b38bd116ea05aeefb",
+        "src": "/music/math-rock/Murphy%20Radio%20-%20Autumn.mp3",
+        "cover": "/generated/music-covers/3ecfdd0ffbe96935912b9b8003a0a9565eb6eeba.jpg",
+        "title": "Autumn",
+        "artist": "Murphy Radio",
+        "duration": 273,
+        "durationLabel": "4:33",
+        "lyricsSrc": "/music/math-rock/Murphy%20Radio%20-%20Autumn.lrc"
+      },
+      {
+        "id": "b6e71e8346389e2d8537c12cf49708ed4edd32d2",
+        "src": "/music/math-rock/RAY%20-%20%E3%81%8A%E3%81%A8%E3%81%8E.mp3",
+        "cover": "/generated/music-covers/18a50d141f9b193f7814b190752923cc88d6918b.jpg",
+        "title": "おとぎ",
+        "artist": "RAY",
+        "duration": 244,
+        "durationLabel": "4:04",
+        "lyricsSrc": "/music/math-rock/RAY%20-%20%E3%81%8A%E3%81%A8%E3%81%8E.lrc"
+      },
+      {
+        "id": "bed008132cf8b2d6cca7aa0896c4f86f3f72b69b",
+        "src": "/music/math-rock/She%20Never%20Sings%20Our%20Songs%20-%20%E5%8F%8C%E4%BD%8D%E5%BE%AA%E7%8E%AF.mp3",
+        "cover": "/generated/music-covers/8abbfac5c4fe534c49eab728b6018e856e91c251.jpg",
+        "title": "双位循环",
+        "artist": "She Never Sings Our Songs",
+        "duration": 379,
+        "durationLabel": "6:19",
+        "lyricsSrc": "/music/math-rock/She%20Never%20Sings%20Our%20Songs%20-%20%E5%8F%8C%E4%BD%8D%E5%BE%AA%E7%8E%AF.lrc"
+      },
+      {
+        "id": "f1ee36e799c46f46b7b908c534f4db6be9f7df4f",
+        "src": "/music/math-rock/sow%20-%20to%20growth%2C%20for%20growth.mp3",
+        "cover": "/generated/music-covers/163eb5e81186ebef7e52a4ce007815f39df04954.jpg",
+        "title": "to growth, for growth",
+        "artist": "sow",
+        "duration": 348,
+        "durationLabel": "5:48",
+        "lyricsSrc": "/music/math-rock/sow%20-%20to%20growth%2C%20for%20growth.lrc"
+      },
+      {
+        "id": "d2ac681ea656b2a89475085def07ad0db4f33b82",
+        "src": "/music/math-rock/stargaze%20shelter%20-%20%E3%82%A8%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%20(modetotonee).mp3",
+        "cover": "/generated/music-covers/4f9202acd8722e892010184364bc550ca7546bc4.jpg",
+        "title": "エミュレーション (mode:totonee)",
+        "artist": "stargaze shelter",
+        "duration": 234,
+        "durationLabel": "3:54",
+        "lyricsSrc": "/music/math-rock/stargaze%20shelter%20-%20%E3%82%A8%E3%83%9F%E3%83%A5%E3%83%AC%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%20(modetotonee).lrc"
+      },
+      {
+        "id": "91fcfba3716a803f69605f99a143d7c0b8850983",
+        "src": "/music/math-rock/toe%20-%20LONELINESS%20WILL%20SHINE.mp3",
+        "cover": "/generated/music-covers/ba3fb4fba27af04cb4e6e7c45936be502c12f78a.jpg",
+        "title": "LONELINESS WILL SHINE",
+        "artist": "toe",
+        "duration": 356,
+        "durationLabel": "5:56",
+        "lyricsSrc": "/music/math-rock/toe%20-%20LONELINESS%20WILL%20SHINE.lrc"
+      },
+      {
+        "id": "dc400807aa92d967156c31ae7a2b670eed175268",
+        "src": "/music/math-rock/toe%20-%20two%20moons.mp3",
+        "cover": "/generated/music-covers/f19a3281f8301b97347b56764c21f03301ea3e4f.jpg",
+        "title": "two moons",
+        "artist": "toe",
+        "duration": 250,
+        "durationLabel": "4:10",
+        "lyricsSrc": "/music/math-rock/toe%20-%20two%20moons.lrc"
+      },
+      {
+        "id": "5bf9e5ab839ebf00b2aaeb55b965315d00931c74",
+        "src": "/music/math-rock/Totorro%20-%20Chevalier%20Bulltoe.mp3",
+        "cover": "/generated/music-covers/713752ec6aee664deaad1b1d03ddf576fbe53240.jpg",
+        "title": "Chevalier Bulltoe",
+        "artist": "Totorro",
+        "duration": 212,
+        "durationLabel": "3:32",
+        "lyricsSrc": "/music/math-rock/Totorro%20-%20Chevalier%20Bulltoe.lrc"
+      },
+      {
+        "id": "45475eaf915d8c8d2fe8b5fe2e7e7c0972981165",
+        "src": "/music/math-rock/Vaundy%20-%20%E8%B8%8A%E3%82%8A%E5%AD%90.mp3",
+        "cover": "/generated/music-covers/a112483d27b161be380de0941610b54e80767fef.jpg",
+        "title": "踊り子",
+        "artist": "Vaundy",
+        "duration": 230,
+        "durationLabel": "3:50",
+        "lyricsSrc": "/music/math-rock/Vaundy%20-%20%E8%B8%8A%E3%82%8A%E5%AD%90.lrc"
+      },
+      {
+        "id": "eb52c70fe6647ecccdbe3d15f0ffa2600fb770b6",
+        "src": "/music/math-rock/%E3%82%B5%E3%82%AB%E3%83%8A%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%20-%20%E7%99%BD%E6%B3%A2%E3%83%88%E3%83%83%E3%83%97%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%BF%E3%83%BC.mp3",
+        "cover": "/generated/music-covers/f9645145553d0ada3f8c396d2cc66cfb3b392db2.jpg",
+        "title": "白波トップウォーター",
+        "artist": "サカナクション",
+        "duration": 328,
+        "durationLabel": "5:28",
+        "lyricsSrc": "/music/math-rock/%E3%82%B5%E3%82%AB%E3%83%8A%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%20-%20%E7%99%BD%E6%B3%A2%E3%83%88%E3%83%83%E3%83%97%E3%82%A6%E3%82%A9%E3%83%BC%E3%82%BF%E3%83%BC.lrc"
+      }
+    ],
     "midwest-emo": [],
-    "piano": []
+    "piano": [
+      {
+        "id": "3d358e772d3683ba59c1d288c5ee56940d2a232a",
+        "src": "/music/piano/%E4%B8%AD%E5%B2%9B%E5%B2%AC%20-%20Vision.mp3",
+        "cover": "/generated/music-covers/6d81a40bfa55ccec9f99901d107a5dfd848d44f4.jpg",
+        "title": "Vision",
+        "artist": "中岛岬",
+        "duration": 132,
+        "durationLabel": "2:12",
+        "lyricsSrc": null
+      }
+    ]
   }
 }

@@ -8,6 +8,7 @@ const sidebar = await readFile(new URL('../src/components/Sidebar.astro', import
 const publishApi = await readFile(new URL('../functions/api/publish.ts', import.meta.url), 'utf8');
 const musicUploadApi = await readFile(new URL('../functions/api/upload-music.ts', import.meta.url), 'utf8');
 const authApi = await readFile(new URL('../functions/api/auth.ts', import.meta.url), 'utf8');
+const contentStyles = await readFile(new URL('../src/styles/content.css', import.meta.url), 'utf8');
 
 test('console login form cannot fall back to a credential-bearing GET URL', () => {
   assert.match(consolePage, /<form[^>]*method="post"[^>]*data-login-form/);
@@ -59,4 +60,18 @@ test('article publishing derives the topic slug on the server', () => {
 
 test('music upload accepts every playlist exposed by the console', () => {
   assert.match(musicUploadApi, /'vocaloid'/);
+});
+
+test('file conflict dialog fills the content area with a frosted overlay', () => {
+  assert.match(contentStyles, /dialog\[data-file-conflict\].*position:fixed/);
+  assert.match(contentStyles, /inset:0 0 0 299px/);
+  assert.match(contentStyles, /backdrop-filter:blur\(26px\)/);
+  assert.match(contentStyles, /conflict-files::before/);
+});
+
+test('file conflict actions provide symmetric overwrite and keep hover transforms', () => {
+  assert.match(contentStyles, /data-overwrite\]:hover[^}]*rotateY\(17deg\)/);
+  assert.match(contentStyles, /data-keep-existing\]:hover[^}]*rotateY\(-17deg\)/);
+  assert.match(contentStyles, /background:#c94736/);
+  assert.match(contentStyles, /background:#3d9b68/);
 });
