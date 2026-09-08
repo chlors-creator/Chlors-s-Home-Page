@@ -9,7 +9,7 @@ export const PLAYLISTS: readonly PlaylistDefinition[] = [
   {
     slug: 'electronic',
     title: '电音',
-    description: '电子音乐歌单。',
+    description: '10s~20s，多流派集合',
     directory: 'electronic',
   },
   {
