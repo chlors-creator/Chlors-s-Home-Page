@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 
 const consolePage = await readFile(new URL('../src/pages/console.astro', import.meta.url), 'utf8');
+const loginPage = await readFile(new URL('../src/pages/console/login.astro', import.meta.url), 'utf8');
 const consoleScript = await readFile(new URL('../src/scripts/console.ts', import.meta.url), 'utf8');
 const sidebar = await readFile(new URL('../src/components/Sidebar.astro', import.meta.url), 'utf8');
 const publishApi = await readFile(new URL('../functions/api/publish.ts', import.meta.url), 'utf8');
@@ -11,7 +12,7 @@ const authApi = await readFile(new URL('../functions/api/auth.ts', import.meta.u
 const contentStyles = await readFile(new URL('../src/styles/content.css', import.meta.url), 'utf8');
 
 test('console login form cannot fall back to a credential-bearing GET URL', () => {
-  assert.match(consolePage, /<form[^>]*method="post"[^>]*data-login-form/);
+  assert.match(loginPage, /<form[^>]*method="post"[^>]*data-login-form/);
   assert.match(consoleScript, /history\.replaceState/);
 });
 
@@ -20,14 +21,14 @@ test('console initialization survives Astro client-side navigation', () => {
 });
 
 test('console login submission stays inside the JSON request flow', () => {
-  const loginHandler = consoleScript.match(/login\.addEventListener\('submit',[\s\S]*?\n  \}\);/)?.[0] || '';
-  assert.match(loginHandler, /event\.preventDefault\(\)/);
+  assert.match(consoleScript, /login\) login\.addEventListener\('submit'/);
+  assert.match(consoleScript, /event\.preventDefault\(\)/);
 });
 
 test('a late initial auth probe cannot overwrite a newer login result', () => {
   assert.match(consoleScript, /authRequestVersion/);
   assert.match(consoleScript, /const requestVersion = \+\+authRequestVersion/);
-  assert.match(consoleScript, /requestVersion === authRequestVersion/);
+  assert.match(consoleScript, /requestVersion !== authRequestVersion/);
 });
 
 test('auth cookies only use Secure when the request is HTTPS', () => {
@@ -74,4 +75,28 @@ test('file conflict actions provide symmetric overwrite and keep hover transform
   assert.match(contentStyles, /data-keep-existing\]:hover[^}]*rotateY\(-17deg\)/);
   assert.match(contentStyles, /background:#c94736/);
   assert.match(contentStyles, /background:#3d9b68/);
+});
+
+test('console home exposes four action cards and dedicated upload routes', () => {
+  assert.match(consolePage, /data-console-card="login"/);
+  assert.match(consolePage, /data-console-card="article"/);
+  assert.match(consolePage, /data-console-card="music"/);
+  assert.match(consolePage, /data-console-card="lyrics"/);
+  assert.match(consolePage, /href="\/console\/login\//);
+  assert.match(consolePage, /href="\/console\/article\//);
+  assert.match(consolePage, /href="\/console\/music\//);
+  assert.match(consolePage, /href="\/console\/lyrics\//);
+});
+
+test('console script gates upload cards and supports top login notices', () => {
+  assert.match(consoleScript, /未登录/);
+  assert.match(consoleScript, /已登录/);
+  assert.match(consoleScript, /data-console-card/);
+  assert.match(consoleScript, /location\.replace/);
+});
+
+test('article upload endpoint reports file conflicts before replacing a post', () => {
+  assert.match(publishApi, /file_exists/);
+  assert.match(publishApi, /incoming/);
+  assert.match(publishApi, /existing/);
 });

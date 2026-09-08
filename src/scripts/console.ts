@@ -1,96 +1,25 @@
-function clearCredentialQuery() {
-  const params = new URLSearchParams(window.location.search);
-  if (params.has('username') || params.has('password')) {
-    window.history.replaceState(null, document.title, `${window.location.pathname}${window.location.hash}`);
-  }
-}
-
+function clearCredentialQuery() { const params = new URLSearchParams(window.location.search); if (params.has('username') || params.has('password')) window.history.replaceState(null, document.title, `${window.location.pathname}${window.location.hash}`); }
+function toast(el: HTMLElement | null, message: string, tone: 'success' | 'error' = 'error') { if (!el) return; el.textContent = message; el.dataset.tone = tone; el.classList.add('is-visible'); window.setTimeout(() => el.classList.remove('is-visible'), 2600); }
+function setConflict(conflict: HTMLDialogElement, data: any) { (conflict.querySelector('[data-incoming-name]') as HTMLElement).textContent = data.incoming.name; (conflict.querySelector('[data-incoming-meta]') as HTMLElement).textContent = `${data.incoming.size} B · ${data.incoming.type}`; (conflict.querySelector('[data-existing-name]') as HTMLElement).textContent = data.existing.name; (conflict.querySelector('[data-existing-meta]') as HTMLElement).textContent = `${data.existing.size} B · ${data.existing.type}`; }
 function initializeConsole() {
   clearCredentialQuery();
   const statusEl = document.querySelector<HTMLElement>('[data-console-status]');
+  const page = document.querySelector<HTMLElement>('[data-upload-page]');
   const login = document.querySelector<HTMLFormElement>('[data-login-form]');
-  const panel = document.querySelector<HTMLElement>('[data-console-panel]');
-  if (!statusEl || !login || !panel || login.dataset.initialized === 'true') return;
-  login.dataset.initialized = 'true';
-
-  const setState = (authenticated: boolean) => {
-    login.hidden = authenticated;
-    panel.hidden = !authenticated;
-    statusEl.textContent = authenticated ? '已登录' : '请登录控制台';
-  };
-
+  let authenticated = false;
   let authRequestVersion = 0;
-  const probeVersion = authRequestVersion;
-  fetch('/api/auth', { credentials: 'same-origin' })
-    .then((response) => response.json())
-    .then((data: { authenticated?: boolean }) => {
-      if (probeVersion === authRequestVersion) setState(data.authenticated === true);
-    })
-    .catch(() => { statusEl.textContent = '无法连接认证服务。'; });
-
-  login.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const requestVersion = ++authRequestVersion;
-    const response = await fetch('/api/auth', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      credentials: 'same-origin',
-      body: JSON.stringify(Object.fromEntries(new FormData(login))),
-    });
-    const data = await response.json();
-    if (requestVersion !== authRequestVersion) return;
-    if (response.ok) setState(true);
-    else statusEl.textContent = data.error || '登录失败';
-  });
-
-  panel.querySelector<HTMLButtonElement>('[data-logout]')?.addEventListener('click', async () => {
-    const requestVersion = ++authRequestVersion;
-    await fetch('/api/auth', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      credentials: 'same-origin',
-      body: JSON.stringify({ action: 'logout' }),
-    });
-    if (requestVersion === authRequestVersion) setState(false);
-  });
-
-  panel.querySelector<HTMLFormElement>('[data-post-form]')?.addEventListener('submit', async (event) => {
-    event.preventDefault();
-    const form = event.currentTarget as HTMLFormElement;
-    const body = new FormData(form);
-    const file = body.get('bodyFile');
-    if (!(file instanceof File)) { statusEl.textContent = '请选择 Markdown 正文文件。'; return; }
-    body.delete('bodyFile');
-    body.set('body', await file.text());
-    const response = await fetch('/api/publish', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      credentials: 'same-origin',
-      body: JSON.stringify(Object.fromEntries(body)),
-    });
-    const data = await response.json();
-    statusEl.textContent = data.error || '文章已提交';
-  });
-
-  let pendingUpload: { formData: FormData; submitButton: HTMLButtonElement } | null = null;
+  const authProbe = fetch('/api/auth', { credentials: 'same-origin' }).then(response => response.json()).then(data => { authenticated = data.authenticated === true; if (page && !authenticated) { window.location.replace('/console/'); } });
+  document.querySelectorAll<HTMLElement>('[data-upload-card]').forEach(card => card.addEventListener('click', event => { if (!authenticated) { event.preventDefault(); toast(statusEl, '未登录', 'error'); } }));
+  document.querySelector<HTMLElement>('[data-console-card="login"]')?.addEventListener('click', async event => { if (window.location.pathname !== '/console/') return; await authProbe; if (authenticated) { event.preventDefault(); toast(statusEl, '已登录', 'success'); } });
+  if (login) login.addEventListener('submit', async event => { event.preventDefault(); const requestVersion = ++authRequestVersion; const response = await fetch('/api/auth', { method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify(Object.fromEntries(new FormData(login))) }); const data = await response.json(); if (requestVersion !== authRequestVersion) return; if (response.ok) { authenticated = true; window.location.replace('/console/'); } else toast(statusEl, data.error || '登录失败', 'error'); });
+  const post = document.querySelector<HTMLFormElement>('[data-post-form]');
   const conflict = document.querySelector<HTMLDialogElement>('[data-file-conflict]');
-  const setConflict = (data: any) => { (conflict?.querySelector('[data-incoming-name]') as HTMLElement).textContent = data.incoming.name; (conflict?.querySelector('[data-incoming-meta]') as HTMLElement).textContent = `${data.incoming.size} B · ${data.incoming.type}`; (conflict?.querySelector('[data-existing-name]') as HTMLElement).textContent = data.existing.name; (conflict?.querySelector('[data-existing-meta]') as HTMLElement).textContent = `${data.existing.size} B · ${data.existing.type}`; };
-  const submitMusicForm = async (form: HTMLFormElement, overwrite = false) => {
-    const formData = new FormData(form); if (overwrite) formData.set('overwrite', 'true');
-    const response = await fetch('/api/upload-music', {
-      method: 'POST',
-      credentials: 'same-origin',
-      body: formData,
-    });
-    const data = await response.json();
-    if (response.status === 409 && data.error === 'file_exists') { pendingUpload = { formData, submitButton: form.querySelector('button[type="submit"]')! }; setConflict(data); conflict?.showModal(); return; }
-    statusEl.textContent = data.error || (form.matches('[data-lrc-form]') ? '歌词已提交' : '音乐已提交'); if (response.ok) form.reset();
-  };
-  panel.querySelectorAll<HTMLFormElement>('[data-mp3-form],[data-lrc-form]').forEach((form) => form.addEventListener('submit', (event) => { event.preventDefault(); submitMusicForm(form); }));
-  conflict?.querySelector('[data-overwrite]')?.addEventListener('click', async () => { if (!pendingUpload) return; const formData = pendingUpload.formData; formData.set('overwrite', 'true'); const response = await fetch('/api/upload-music', { method: 'POST', credentials: 'same-origin', body: formData }); const data = await response.json(); conflict.close(); pendingUpload = null; statusEl.textContent = data.error || '音乐已提交'; });
-  const cancel = () => { pendingUpload = null; conflict?.close(); statusEl.textContent = '已取消上传'; };
-  conflict?.querySelector('[data-keep-existing]')?.addEventListener('click', cancel); conflict?.addEventListener('cancel', cancel); conflict?.addEventListener('close', () => { pendingUpload?.submitButton.focus(); pendingUpload = null; });
+  let pending: { formData: FormData; submitButton: HTMLButtonElement } | null = null;
+  post?.addEventListener('submit', async event => { event.preventDefault(); const form = event.currentTarget as HTMLFormElement; const body = new FormData(form); const file = body.get('bodyFile'); if (!(file instanceof File)) return toast(statusEl, '请选择 Markdown 正文文件。'); body.delete('bodyFile'); body.set('body', await file.text()); const response = await fetch('/api/publish', { method: 'POST', headers: { 'content-type': 'application/json' }, credentials: 'same-origin', body: JSON.stringify(Object.fromEntries(body)) }); const data = await response.json(); if (response.status === 409 && data.error === 'file_exists' && conflict) { pending = { formData: body, submitButton: form.querySelector('button[type="submit"]')! }; setConflict(conflict, data); conflict.showModal(); return; } toast(statusEl, data.error || '文章已提交', response.ok ? 'success' : 'error'); if (response.ok) form.reset(); });
+  const musicForms = document.querySelectorAll<HTMLFormElement>('[data-mp3-form],[data-lrc-form]');
+  const submitMusic = async (form: HTMLFormElement) => { const formData = new FormData(form); const response = await fetch('/api/upload-music', { method: 'POST', credentials: 'same-origin', body: formData }); const data = await response.json(); if (response.status === 409 && data.error === 'file_exists' && conflict) { pending = { formData, submitButton: form.querySelector('button[type="submit"]')! }; setConflict(conflict, data); conflict.showModal(); return; } toast(statusEl, data.error || '上传已提交', response.ok ? 'success' : 'error'); if (response.ok) form.reset(); };
+  musicForms.forEach(form => form.addEventListener('submit', event => { event.preventDefault(); submitMusic(event.currentTarget as HTMLFormElement); }));
+  conflict?.querySelector('[data-overwrite]')?.addEventListener('click', async () => { if (!pending) return; pending.formData.set('overwrite', 'true'); const isArticle = Boolean(post); const response = await fetch(isArticle ? '/api/publish' : '/api/upload-music', { method: 'POST', headers: isArticle ? { 'content-type': 'application/json' } : undefined, credentials: 'same-origin', body: isArticle ? JSON.stringify(Object.fromEntries(pending.formData)) : pending.formData }); const data = await response.json(); conflict.close(); toast(statusEl, data.error || '上传已提交', response.ok ? 'success' : 'error'); pending = null; });
+  const cancel = () => { if (pending?.submitButton) pending.submitButton.focus(); pending = null; conflict?.close(); toast(statusEl, '已取消上传', 'error'); }; conflict?.querySelector('[data-keep-existing]')?.addEventListener('click', cancel); conflict?.addEventListener('cancel', cancel);
 }
-
-document.addEventListener('astro:page-load', initializeConsole);
-initializeConsole();
+document.addEventListener('astro:page-load', initializeConsole); initializeConsole();
