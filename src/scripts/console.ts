@@ -25,7 +25,6 @@ function initializeConsole() {
     .catch(() => { statusEl.textContent = '无法连接认证服务。'; });
 
   login.addEventListener('submit', async (event) => {
-    event.preventDefault();
     const response = await fetch('/api/auth', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -65,16 +64,25 @@ function initializeConsole() {
     statusEl.textContent = data.error || '文章已提交';
   });
 
-  panel.querySelector<HTMLFormElement>('[data-music-form]')?.addEventListener('submit', async (event) => {
+  let pendingUpload: { formData: FormData; submitButton: HTMLButtonElement } | null = null;
+  const conflict = document.querySelector<HTMLDialogElement>('[data-file-conflict]');
+  const setConflict = (data: any) => { (conflict?.querySelector('[data-incoming-name]') as HTMLElement).textContent = data.incoming.name; (conflict?.querySelector('[data-incoming-meta]') as HTMLElement).textContent = `${data.incoming.size} B · ${data.incoming.type}`; (conflict?.querySelector('[data-existing-name]') as HTMLElement).textContent = data.existing.name; (conflict?.querySelector('[data-existing-meta]') as HTMLElement).textContent = `${data.existing.size} B · ${data.existing.type}`; };
+  const submitMusicForm = async (form: HTMLFormElement, overwrite = false) => {
+    const formData = new FormData(form); if (overwrite) formData.set('overwrite', 'true');
     event.preventDefault();
     const response = await fetch('/api/upload-music', {
       method: 'POST',
       credentials: 'same-origin',
-      body: new FormData(event.currentTarget as HTMLFormElement),
+      body: formData,
     });
     const data = await response.json();
-    statusEl.textContent = data.error || '音乐已提交';
-  });
+    if (response.status === 409 && data.error === 'file_exists') { pendingUpload = { formData, submitButton: form.querySelector('button[type="submit"]')! }; setConflict(data); conflict?.showModal(); return; }
+    statusEl.textContent = data.error || (form.matches('[data-lrc-form]') ? '歌词已提交' : '音乐已提交'); if (response.ok) form.reset();
+  };
+  panel.querySelectorAll<HTMLFormElement>('[data-mp3-form],[data-lrc-form]').forEach((form) => form.addEventListener('submit', (event) => { event.preventDefault(); submitMusicForm(form); }));
+  conflict?.querySelector('[data-overwrite]')?.addEventListener('click', async () => { if (!pendingUpload) return; const formData = pendingUpload.formData; formData.set('overwrite', 'true'); const response = await fetch('/api/upload-music', { method: 'POST', credentials: 'same-origin', body: formData }); const data = await response.json(); conflict.close(); pendingUpload = null; statusEl.textContent = data.error || '音乐已提交'; });
+  const cancel = () => { pendingUpload = null; conflict?.close(); statusEl.textContent = '已取消上传'; };
+  conflict?.querySelector('[data-keep-existing]')?.addEventListener('click', cancel); conflict?.addEventListener('cancel', cancel); conflict?.addEventListener('close', () => { pendingUpload?.submitButton.focus(); pendingUpload = null; });
 }
 
 document.addEventListener('astro:page-load', initializeConsole);

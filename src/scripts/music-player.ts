@@ -1,7 +1,8 @@
 import Amplitude from 'amplitudejs';
 import { nextIndex, nextMode, type PlaybackMode } from './playback-state';
+import { findActiveLyricIndex, parseLrc, type LyricLine } from './lrc';
 
-interface Track { title: string; artist: string; src: string; cover: string; duration: number; }
+interface Track { title: string; artist: string; src: string; cover: string; duration: number; lyricsSrc: string | null; }
 
 const MODE_LABELS: Record<PlaybackMode, string> = { list: '列表循环', shuffle: '随机播放', sequence: '顺序播放', single: '单曲循环' };
 const cleanups = new WeakMap<HTMLElement, () => void>();
@@ -18,7 +19,6 @@ function initialize(root: HTMLElement): void {
   if (cleanups.has(root)) return;
   const tracks: Track[] = JSON.parse(root.dataset.trackManifest || '[]');
   const playPause = root.querySelector<HTMLButtonElement>('[data-play-pause]');
-  const playIcons = root.querySelectorAll<SVGElement>('[data-play-icon]');
   const modeButton = root.querySelector<HTMLButtonElement>('[data-mode-button]');
   const volume = root.querySelector<HTMLInputElement>('[data-volume]');
   const progress = root.querySelector<HTMLElement>('[data-progress]');
@@ -29,6 +29,10 @@ function initialize(root: HTMLElement): void {
   const title = root.querySelector<HTMLElement>('[data-player-title]');
   const artist = root.querySelector<HTMLElement>('[data-player-artist]');
   const rows = [...root.querySelectorAll<HTMLElement>('[data-track-index]')];
+  const expand = root.querySelector<HTMLButtonElement>('[data-expand-player]'); const lyrics = root.querySelector<HTMLElement>('[data-lyrics]'); const lyricLines = root.querySelector<HTMLOListElement>('[data-lyrics-lines]'); const emptyLyrics = root.querySelector<HTMLElement>('[data-lyrics-empty]');
+  const lyricCache = new Map<string, LyricLine[]>(); let currentLyrics: LyricLine[] = []; let activeLyric = -1;
+  const renderLyrics = () => { if (!lyricLines || !emptyLyrics) return; emptyLyrics.hidden = currentLyrics.length > 0; lyricLines.innerHTML = ''; currentLyrics.forEach((line, index) => { const item = document.createElement('li'); item.textContent = line.text; item.toggleAttribute('data-active', index === activeLyric); lyricLines.append(item); }); };
+  const loadLyrics = async () => { currentLyrics = []; activeLyric = -1; const src = tracks[current]?.lyricsSrc; if (src) { try { const cached = lyricCache.get(src); const text = cached ? null : await fetch(src).then((r) => r.ok ? r.text() : Promise.reject(new Error('lyrics'))); currentLyrics = cached || parseLrc(text || ''); if (!cached) lyricCache.set(src, currentLyrics); } catch {} } renderLyrics(); };
   let mode = readMode();
   let current = 0;
   let ended = false;
@@ -72,7 +76,7 @@ function initialize(root: HTMLElement): void {
     const total = totalDuration();
     const isPlaying = !audio.paused && !audio.ended && !audio.error;
     if (playPause) {
-      playIcons.forEach((icon) => icon.toggleAttribute('hidden', icon.dataset.playIcon !== (isPlaying ? 'pause' : 'play')));
+      playPause.textContent = isPlaying ? '⏸' : '▶';
       playPause.setAttribute('aria-label', isPlaying ? '暂停' : '播放');
       playPause.title = isPlaying ? '暂停' : '播放';
     }
@@ -88,11 +92,13 @@ function initialize(root: HTMLElement): void {
       progress.setAttribute('aria-valuenow', String(played));
     }
     rows.forEach((row) => row.toggleAttribute('data-active', Number(row.dataset.trackIndex) === current));
+    if (currentLyrics.length) { const nextLyric = findActiveLyricIndex(currentLyrics, played); if (nextLyric !== activeLyric) { activeLyric = nextLyric; renderLyrics(); lyricLines?.querySelector('[data-active]')?.scrollIntoView({ block: 'center', behavior: 'smooth' }); } }
   };
   const play = (index: number) => {
     ended = false;
     current = index;
     Amplitude.playSongAtIndex(index);
+    loadLyrics();
     render();
   };
   const onPlayPause = () => {
@@ -136,6 +142,9 @@ function initialize(root: HTMLElement): void {
     }],
     [audio, 'ended', onEnded],
   ];
+  const toggleExpanded = () => { const expanded = root.dataset.expanded !== 'true'; root.dataset.expanded = String(expanded); expand?.setAttribute('aria-expanded', String(expanded)); expand?.setAttribute('aria-label', expanded ? '收起播放器' : '展开播放器'); expand!.title = expanded ? '收起播放器' : '展开播放器'; if (lyrics) lyrics.hidden = !expanded; document.documentElement.classList.toggle('player-expanded', expanded); };
+  expand?.addEventListener('click', toggleExpanded); document.addEventListener('keydown', (event) => { if (event.key === 'Escape' && root.dataset.expanded === 'true') toggleExpanded(); });
+  loadLyrics();
   for (const event of ['play', 'playing', 'pause', 'timeupdate', 'loadedmetadata', 'durationchange', 'seeked', 'error']) {
     listeners.push([audio, event, render]);
   }
@@ -146,6 +155,7 @@ function initialize(root: HTMLElement): void {
     disposed = true;
     ended = false;
     listeners.forEach(([element, event, handler]) => element?.removeEventListener(event, handler));
+    expand?.removeEventListener('click', toggleExpanded);
     Amplitude.pause();
     cleanups.delete(root);
   });
