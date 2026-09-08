@@ -10,6 +10,7 @@ const publishApi = await readFile(new URL('../functions/api/publish.ts', import.
 const musicUploadApi = await readFile(new URL('../functions/api/upload-music.ts', import.meta.url), 'utf8');
 const authApi = await readFile(new URL('../functions/api/auth.ts', import.meta.url), 'utf8');
 const contentStyles = await readFile(new URL('../src/styles/content.css', import.meta.url), 'utf8');
+const consoleCardStyles = await readFile(new URL('../src/styles/console-cards.css', import.meta.url), 'utf8');
 
 test('console login form cannot fall back to a credential-bearing GET URL', () => {
   assert.match(loginPage, /<form[^>]*method="post"[^>]*data-login-form/);
@@ -45,6 +46,26 @@ test('auth session decoding computes Base64 padding from the payload length', ()
 
 test('sidebar exposes the console route', () => {
   assert.match(sidebar, /href="\/console\/"/);
+});
+
+test('console cards use the requested concise descriptions', () => {
+  assert.match(consolePage, /<h2>登录<\/h2><p>登录到控制台<\/p>/);
+  assert.match(consolePage, /<h2>上传文章<\/h2><p>上传Markdown文档<\/p>/);
+  assert.match(consolePage, /<h2>上传音乐<\/h2><p>上传MP3音频文件<\/p>/);
+  assert.match(consolePage, /<h2>上传歌词<\/h2><p>上传LRC歌词文件<\/p>/);
+});
+
+test('all console cards share the GitHub-style hover icon animation', () => {
+  assert.match(consolePage, /login-console-card/);
+  assert.match(consolePage, /article-upload-card/);
+  assert.match(consolePage, /music-upload-card/);
+  assert.match(consolePage, /lyrics-upload-card/);
+  assert.match(consoleCardStyles, /\.topic-card\.console-icon-card:hover/);
+  assert.match(consoleCardStyles, /console-login-icon\.png/);
+  assert.match(consoleCardStyles, /console-article-icon\.png/);
+  assert.match(consoleCardStyles, /music-upload-icon\.png/);
+  assert.match(consoleCardStyles, /console-lyrics-icon\.png/);
+  assert.match(consoleCardStyles, /translate\(12px, 12px\) scale\(\.86\)/);
 });
 
 test('article publishing does not ask for a topic slug', () => {

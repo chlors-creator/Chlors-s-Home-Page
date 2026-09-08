@@ -1,0 +1,39 @@
+.topic-card.console-icon-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.topic-card.console-icon-card::after {
+  content: "";
+  position: absolute;
+  right: 28px;
+  bottom: 26px;
+  width: 88px;
+  height: 88px;
+  background-color: #fff;
+  opacity: 0;
+  transform: translate(12px, 12px) scale(.86);
+  transition: opacity .22s ease, transform .22s ease;
+  pointer-events: none;
+  mask: var(--console-card-icon) center / contain no-repeat;
+}
+
+.topic-card.console-icon-card:hover::after {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
+.topic-card.login-console-card { --console-card-icon: url('/console-login-icon.png'); }
+.topic-card.article-upload-card { --console-card-icon: url('/console-article-icon.png'); }
+.topic-card.music-upload-card { --console-card-icon: url('/music-upload-icon.png'); }
+.topic-card.lyrics-upload-card { --console-card-icon: url('/console-lyrics-icon.png'); }
+
+html[data-theme-choice="black"] .topic-card.console-icon-card::after {
+  background-color: #000;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .topic-card.console-icon-card::after {
+    transition: none;
+  }
+}
