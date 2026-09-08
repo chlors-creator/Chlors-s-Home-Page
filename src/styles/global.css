@@ -11,4 +11,3 @@ main{view-transition-name:page-content}
 .page-content{view-transition-name:none}
 main{height:100vh;overflow-y:auto}
 ::view-transition-group(page-content){animation:none}
-::view-transition-new(page-content){border-left:0!important;border-image:none!important;box-shadow:none!important}
