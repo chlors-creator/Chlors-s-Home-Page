@@ -8,3 +8,6 @@
 @media(max-width:760px){.mode-button{justify-self:center}}
 .player-expanded .music-player[data-expanded="true"]{background:color-mix(in srgb,var(--paper) 62%,transparent);backdrop-filter:blur(30px) saturate(1.18);-webkit-backdrop-filter:blur(30px) saturate(1.18);border-top-left-radius:var(--radius)}
 .player-expanded .music-player[data-expanded="true"] .player-surface{border-radius:24px;background:rgba(128,128,128,.13)}
+.transport-controls .play-button{display:grid;place-items:center;padding:0;line-height:0}
+.play-button svg{display:block;width:32px;height:32px;fill:currentColor}
+.play-button svg[hidden]{display:none}

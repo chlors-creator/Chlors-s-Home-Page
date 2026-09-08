@@ -19,6 +19,8 @@ function initialize(root: HTMLElement): void {
   if (cleanups.has(root)) return;
   const tracks: Track[] = JSON.parse(root.dataset.trackManifest || '[]');
   const playPause = root.querySelector<HTMLButtonElement>('[data-play-pause]');
+  const playIcon = playPause?.querySelector<SVGElement>('[data-play-icon]');
+  const pauseIcon = playPause?.querySelector<SVGElement>('[data-pause-icon]');
   const modeButton = root.querySelector<HTMLButtonElement>('[data-mode-button]');
   const volume = root.querySelector<HTMLInputElement>('[data-volume]');
   const progress = root.querySelector<HTMLElement>('[data-progress]');
@@ -78,7 +80,8 @@ function initialize(root: HTMLElement): void {
     const total = totalDuration();
     const isPlaying = !audio.paused && !audio.ended && !audio.error;
     if (playPause) {
-      playPause.textContent = isPlaying ? '⏸' : '▶';
+      playIcon?.toggleAttribute('hidden', isPlaying);
+      pauseIcon?.toggleAttribute('hidden', !isPlaying);
       playPause.setAttribute('aria-label', isPlaying ? '暂停' : '播放');
       playPause.title = isPlaying ? '暂停' : '播放';
     }
