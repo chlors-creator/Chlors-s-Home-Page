@@ -10,4 +10,4 @@ main{view-transition-name:page-content}
 .page-content{view-transition-name:none}
 main{height:100vh;overflow-x:clip;overflow-y:auto;z-index:1}
 ::view-transition-group(page-content){animation:none}
-html[data-theme-choice=paper]:active-view-transition body::before,html[data-theme-choice=white]:active-view-transition body::before{opacity:0}
+html:active-view-transition main{border-top-left-radius:0}
