@@ -19,12 +19,18 @@ function initializeConsole() {
     statusEl.textContent = authenticated ? '已登录' : '请登录控制台';
   };
 
+  let authRequestVersion = 0;
+  const probeVersion = authRequestVersion;
   fetch('/api/auth', { credentials: 'same-origin' })
     .then((response) => response.json())
-    .then((data: { authenticated?: boolean }) => setState(data.authenticated === true))
+    .then((data: { authenticated?: boolean }) => {
+      if (probeVersion === authRequestVersion) setState(data.authenticated === true);
+    })
     .catch(() => { statusEl.textContent = '无法连接认证服务。'; });
 
   login.addEventListener('submit', async (event) => {
+    event.preventDefault();
+    const requestVersion = ++authRequestVersion;
     const response = await fetch('/api/auth', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
@@ -32,18 +38,20 @@ function initializeConsole() {
       body: JSON.stringify(Object.fromEntries(new FormData(login))),
     });
     const data = await response.json();
+    if (requestVersion !== authRequestVersion) return;
     if (response.ok) setState(true);
     else statusEl.textContent = data.error || '登录失败';
   });
 
   panel.querySelector<HTMLButtonElement>('[data-logout]')?.addEventListener('click', async () => {
+    const requestVersion = ++authRequestVersion;
     await fetch('/api/auth', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
       credentials: 'same-origin',
       body: JSON.stringify({ action: 'logout' }),
     });
-    setState(false);
+    if (requestVersion === authRequestVersion) setState(false);
   });
 
   panel.querySelector<HTMLFormElement>('[data-post-form]')?.addEventListener('submit', async (event) => {
@@ -69,7 +77,6 @@ function initializeConsole() {
   const setConflict = (data: any) => { (conflict?.querySelector('[data-incoming-name]') as HTMLElement).textContent = data.incoming.name; (conflict?.querySelector('[data-incoming-meta]') as HTMLElement).textContent = `${data.incoming.size} B · ${data.incoming.type}`; (conflict?.querySelector('[data-existing-name]') as HTMLElement).textContent = data.existing.name; (conflict?.querySelector('[data-existing-meta]') as HTMLElement).textContent = `${data.existing.size} B · ${data.existing.type}`; };
   const submitMusicForm = async (form: HTMLFormElement, overwrite = false) => {
     const formData = new FormData(form); if (overwrite) formData.set('overwrite', 'true');
-    event.preventDefault();
     const response = await fetch('/api/upload-music', {
       method: 'POST',
       credentials: 'same-origin',

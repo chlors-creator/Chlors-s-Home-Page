@@ -7,6 +7,7 @@ const consoleScript = await readFile(new URL('../src/scripts/console.ts', import
 const sidebar = await readFile(new URL('../src/components/Sidebar.astro', import.meta.url), 'utf8');
 const publishApi = await readFile(new URL('../functions/api/publish.ts', import.meta.url), 'utf8');
 const musicUploadApi = await readFile(new URL('../functions/api/upload-music.ts', import.meta.url), 'utf8');
+const authApi = await readFile(new URL('../functions/api/auth.ts', import.meta.url), 'utf8');
 
 test('console login form cannot fall back to a credential-bearing GET URL', () => {
   assert.match(consolePage, /<form[^>]*method="post"[^>]*data-login-form/);
@@ -15,6 +16,29 @@ test('console login form cannot fall back to a credential-bearing GET URL', () =
 
 test('console initialization survives Astro client-side navigation', () => {
   assert.match(consoleScript, /astro:page-load/);
+});
+
+test('console login submission stays inside the JSON request flow', () => {
+  const loginHandler = consoleScript.match(/login\.addEventListener\('submit',[\s\S]*?\n  \}\);/)?.[0] || '';
+  assert.match(loginHandler, /event\.preventDefault\(\)/);
+});
+
+test('a late initial auth probe cannot overwrite a newer login result', () => {
+  assert.match(consoleScript, /authRequestVersion/);
+  assert.match(consoleScript, /const requestVersion = \+\+authRequestVersion/);
+  assert.match(consoleScript, /requestVersion === authRequestVersion/);
+});
+
+test('auth cookies only use Secure when the request is HTTPS', () => {
+  assert.match(authApi, /new URL\(request\.url\)/);
+  assert.match(authApi, /Secure/);
+  assert.match(authApi, /protocol === ['"]https:/);
+});
+
+test('auth session decoding computes Base64 padding from the payload length', () => {
+  assert.match(authApi, /const padding = \(4 - \(payload\.length % 4\)\) % 4/);
+  assert.match(authApi, /'='.repeat\(padding\)/);
+  assert.doesNotMatch(authApi, /replaceAll\('_', '\/'\) \+ '=='/);
 });
 
 test('sidebar exposes the console route', () => {
