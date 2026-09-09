@@ -2,7 +2,7 @@ import { isAuthenticated } from './auth';
 
 interface Env { GITHUB_TOKEN: string; GITHUB_OWNER: string; GITHUB_REPO: string; GITHUB_BRANCH?: string; ADMIN_USERNAME: string; ADMIN_PASSWORD: string }
 interface GitHubFile { name?: string; size?: number; sha?: string }
-const dirs = new Set(['electronic','japanese-pop','vocaloid','chinese-pop','post-rock-punk','phonk','math-rock','midwest-emo','piano']);
+const dirs = new Set(['electronic','japanese-pop','vocaloid','chinese-pop','post-rock-punk','post-rock','russian-post-punk','english-post-punk','chinese-post-punk','phonk','math-rock','midwest-emo','piano']);
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json; charset=utf-8' } });
 
 function encodeBase64(bytes: Uint8Array) { let value = ''; for (let i = 0; i < bytes.length; i += 0x8000) value += String.fromCharCode(...bytes.subarray(i, i + 0x8000)); return btoa(value); }
@@ -13,7 +13,7 @@ export const onRequestPost = async ({ request, env }: { request: Request; env: E
   const form = await request.formData(); const file = form.get('file'); const directory = String(form.get('directory') || '');
   const extension = file instanceof File ? file.name.slice(file.name.lastIndexOf('.')).toLowerCase() : '';
   if (!(file instanceof File) || !['.mp3', '.lrc'].includes(extension) || !dirs.has(directory)) return json({ error: '请选择有效的 MP3 或 LRC 文件和歌单。' }, 400);
-  const overwrite = form.get('overwrite') === 'true'; const safeName = file.name.replace(/[^\p{L}\p{N}._() -]/gu, '_'); const path = `public/music/${directory}/${safeName}`;
+  const overwrite = form.get('overwrite') === 'true'; const parent = directory === 'post-rock-punk' ? String(form.get('subcategory') || '') : ''; const safeName = file.name.replace(/[^\p{L}\p{N}._() -]/gu, '_'); const path = `public/music/${directory}/${parent ? `${parent}/` : ''}${safeName}`;
   const api = `https://api.github.com/repos/${env.GITHUB_OWNER}/${env.GITHUB_REPO}/contents/${path}`; const branch = env.GITHUB_BRANCH || 'main';
   const headers = { Authorization: `Bearer ${env.GITHUB_TOKEN}`, 'X-GitHub-Api-Version': '2022-11-28', 'User-Agent': 'naichun-site-console', 'Content-Type': 'application/json' };
   const existingResponse = await fetch(`${api}?ref=${encodeURIComponent(branch)}`, { headers }); const existing = existingResponse.ok ? await existingResponse.json() as GitHubFile : undefined;

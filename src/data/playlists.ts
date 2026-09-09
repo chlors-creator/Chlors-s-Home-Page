@@ -3,6 +3,7 @@ export interface PlaylistDefinition {
   title: string;
   description: string;
   directory: string;
+  children?: readonly PlaylistDefinition[];
 }
 
 export const PLAYLISTS: readonly PlaylistDefinition[] = [
@@ -35,6 +36,12 @@ export const PLAYLISTS: readonly PlaylistDefinition[] = [
     title: '后摇&后朋',
     description: '宏大与崩塌，后现代性Lo-fi音乐组合',
     directory: 'post-rock-punk',
+    children: [
+      { slug: 'post-rock', title: '后摇', description: '宏大铺陈与情绪递进的器乐摇滚', directory: 'post-rock' },
+      { slug: 'russian-post-punk', title: '俄语后朋', description: '冷峻节拍与俄语低语的后朋', directory: 'russian-post-punk' },
+      { slug: 'english-post-punk', title: '英语后朋', description: '吉他、贝斯与英语诗性的后朋', directory: 'english-post-punk' },
+      { slug: 'chinese-post-punk', title: '华语后朋', description: '中文语境下的后朋表达', directory: 'chinese-post-punk' },
+    ],
   },
   {
     slug: 'phonk',

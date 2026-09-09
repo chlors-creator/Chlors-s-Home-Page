@@ -12,6 +12,9 @@ const PLAYLISTS = [
   ['phonk', 'phonk'], ['math-rock', 'math-rock'],
   ['midwest-emo', 'midwest-emo'], ['piano', 'piano'],
 ];
+const PLAYLIST_CHILDREN = {
+  'post-rock-punk': ['post-rock', 'russian-post-punk', 'english-post-punk', 'chinese-post-punk'],
+};
 
 function encodeUrlPath(path) {
   return path.split(/[\\/]+/).map(encodeURIComponent).join('/');
@@ -71,6 +74,15 @@ export async function scanMusicLibrary({
   const playlists = {};
 
   for (const [slug, directory] of PLAYLISTS) {
+    const childDirectories = PLAYLIST_CHILDREN[slug] || [];
+    if (childDirectories.length) {
+      for (const child of childDirectories) {
+        const childRoot = join(musicRoot, directory, child);
+        const files = await findFiles(childRoot, '.mp3'); const lrcFiles = await findFiles(childRoot, '.lrc');
+        const key = `${slug}/${child}`; playlists[key] = [];
+        for (const filePath of files) { try { const metadata = await parseFile(filePath, { duration: true }); const relativePath = relative(childRoot, filePath); const matchingLrc = findMatchingLrc(relativePath, lrcFiles.map((p) => relative(childRoot, p))); const duration = Math.max(0, Math.floor(metadata.format.duration ?? 0)); playlists[key].push({ id: createHash('sha1').update(`${key}/${relativePath}`).digest('hex'), src: `/music/${encodeUrlPath(directory)}/${encodeUrlPath(child)}/${encodeUrlPath(relativePath)}`, lyricsSrc: matchingLrc ? `/music/${encodeUrlPath(directory)}/${encodeUrlPath(child)}/${encodeUrlPath(matchingLrc)}` : null, cover: '/generated/music-covers/default.svg', title: metadata.common.title?.trim() || fallbackTitle(filePath), artist: metadata.common.artist?.trim() || '未知艺术家', duration, durationLabel: formatDuration(duration) }); } catch (error) { console.warn(`Skipping unreadable MP3 ${filePath}: ${error.message}`); } }
+      }
+    }
     const playlistRoot = join(musicRoot, directory);
     const files = await findFiles(playlistRoot, '.mp3');
     const lrcFiles = await findFiles(playlistRoot, '.lrc');
