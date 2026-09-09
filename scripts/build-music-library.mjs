@@ -80,7 +80,35 @@ export async function scanMusicLibrary({
         const childRoot = join(musicRoot, directory, child);
         const files = await findFiles(childRoot, '.mp3'); const lrcFiles = await findFiles(childRoot, '.lrc');
         const key = `${slug}/${child}`; playlists[key] = [];
-        for (const filePath of files) { try { const metadata = await parseFile(filePath, { duration: true }); const relativePath = relative(childRoot, filePath); const matchingLrc = findMatchingLrc(relativePath, lrcFiles.map((p) => relative(childRoot, p))); const duration = Math.max(0, Math.floor(metadata.format.duration ?? 0)); playlists[key].push({ id: createHash('sha1').update(`${key}/${relativePath}`).digest('hex'), src: `/music/${encodeUrlPath(directory)}/${encodeUrlPath(child)}/${encodeUrlPath(relativePath)}`, lyricsSrc: matchingLrc ? `/music/${encodeUrlPath(directory)}/${encodeUrlPath(child)}/${encodeUrlPath(matchingLrc)}` : null, cover: '/generated/music-covers/default.svg', title: metadata.common.title?.trim() || fallbackTitle(filePath), artist: metadata.common.artist?.trim() || '未知艺术家', duration, durationLabel: formatDuration(duration) }); } catch (error) { console.warn(`Skipping unreadable MP3 ${filePath}: ${error.message}`); } }
+        for (const filePath of files) {
+          try {
+            const metadata = await parseFile(filePath, { duration: true });
+            const image = metadata.common.picture?.[0];
+            let cover = '/generated/music-covers/default.svg';
+            if (image?.data) {
+              const coverName = `${createHash('sha1').update(image.data).digest('hex')}.${imageExtension(image.format)}`;
+              await writeFile(join(coversRoot, coverName), image.data);
+              cover = `/generated/music-covers/${coverName}`;
+            }
+            const relativePath = relative(childRoot, filePath);
+            const matchingLrc = findMatchingLrc(relativePath, lrcFiles.map((p) => relative(childRoot, p)));
+            const duration = Math.max(0, Math.floor(metadata.format.duration ?? 0));
+            playlists[key].push({
+              id: createHash('sha1').update(`${key}/${relativePath}`).digest('hex'),
+              src: `/music/${encodeUrlPath(directory)}/${encodeUrlPath(child)}/${encodeUrlPath(relativePath)}`,
+              lyricsSrc: matchingLrc
+                ? `/music/${encodeUrlPath(directory)}/${encodeUrlPath(child)}/${encodeUrlPath(matchingLrc)}`
+                : null,
+              cover,
+              title: metadata.common.title?.trim() || fallbackTitle(filePath),
+              artist: metadata.common.artist?.trim() || '未知艺术家',
+              duration,
+              durationLabel: formatDuration(duration),
+            });
+          } catch (error) {
+            console.warn(`Skipping unreadable MP3 ${filePath}: ${error.message}`);
+          }
+        }
       }
     }
     const playlistRoot = join(musicRoot, directory);
