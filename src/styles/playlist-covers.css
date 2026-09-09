@@ -32,6 +32,19 @@
 .playlist-japanese-pop::after { background-image: url('/playlist-covers/japanese-pop.webp'); }
 .playlist-chinese-pop::after { background-image: url('/playlist-covers/chinese-pop.jpg'); }
 .playlist-post-rock-punk::after { background-image: url('/playlist-covers/post-rock-punk.webp'); }
+.playlist-english-post-punk::after { background-image: url('/playlist-covers/english-post-punk.jpg'); }
+.playlist-russian-post-punk::after { background-image: url('/playlist-covers/russian-post-punk.jpg'); }
+.playlist-chinese-post-punk::after { background-image: url('/playlist-covers/chinese-post-punk.jpg'); }
+.playlist-post-rock::after { background-image: url('/playlist-covers/post-rock.webp'); }
+.playlist-english-post-punk::after,
+.playlist-russian-post-punk::after,
+.playlist-chinese-post-punk::after,
+.playlist-post-rock::after {
+  left: 52%;
+  background-position: right center;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
 .playlist-phonk::after { background-image: url('/playlist-covers/phonk.webp'); }
 .playlist-math-rock::after { background-image: url('/playlist-covers/math-rock.webp'); }
 .playlist-midwest-emo::after { background-image: url('/playlist-covers/midwest-emo.webp'); }
