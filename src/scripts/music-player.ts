@@ -8,7 +8,7 @@ interface PlayerController {
   queue: Queue | null; current: number; mode: PlaybackMode; audio: HTMLAudioElement | null;
   subscribe(listener: () => void): () => void; notify(): void;
   playQueue(queue: Queue, index: number): void; toggle(fallback?: Queue): void;
-  previous(): void; next(): void; cycleMode(): void; setVolume(value: number): void; seek(ratio: number): void;
+  previous(): void; next(adjacent?: boolean): void; cycleMode(): void; setVolume(value: number): void; seek(ratio: number): void;
 }
 
 declare global { interface Window { __chlorsMusicPlayer?: PlayerController; } }
@@ -73,9 +73,11 @@ function createController(): PlayerController {
     previous() {
       if (controller.queue?.tracks.length) controller.playQueue(controller.queue, (controller.current - 1 + controller.queue.tracks.length) % controller.queue.tracks.length);
     },
-    next() {
-      if (!controller.queue) return;
-      const next = nextIndex({ mode: controller.mode, current: controller.current, length: controller.queue.tracks.length });
+    next(adjacent = false) {
+      if (!controller.queue?.tracks.length) return;
+      const next = adjacent
+        ? (controller.current + 1) % controller.queue.tracks.length
+        : nextIndex({ mode: controller.mode, current: controller.current, length: controller.queue.tracks.length });
       if (next !== null) controller.playQueue(controller.queue, next);
     },
     cycleMode() {
@@ -222,7 +224,7 @@ function initialize(root: HTMLElement): void {
     [volume, 'input', () => controller.setVolume(Number(volume?.value || 0))],
     [progress, 'click', onProgress], [progress, 'keydown', onProgress],
     [query('[data-prev]'), 'click', () => controller.previous()],
-    [query('[data-next]'), 'click', () => controller.next()],
+    [query('[data-next]'), 'click', () => controller.next(root.dataset.homePlayer === 'true')],
   ];
   rows.forEach((row) => listeners.push([row.querySelector('button'), 'click', () => localQueue && controller.playQueue(localQueue, Number(row.dataset.trackIndex))]));
   listeners.forEach(([element, event, handler]) => element?.addEventListener(event, handler));
