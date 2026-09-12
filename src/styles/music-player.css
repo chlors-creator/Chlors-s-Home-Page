@@ -5,6 +5,7 @@
 .mode-button svg[hidden]{display:none}
 .mode-button .mode-arrow{fill:currentColor;stroke:none}
 .mode-button:hover{color:var(--ink)}
+.home-music-player{padding-top:0;margin-bottom:30px}
 @media(max-width:760px){.mode-button{justify-self:center}}
 .player-expanded .music-player[data-expanded="true"]{background:color-mix(in srgb,var(--paper) 62%,transparent);backdrop-filter:blur(30px) saturate(1.18);-webkit-backdrop-filter:blur(30px) saturate(1.18);border-top-left-radius:var(--radius)}
 .player-expanded .music-player[data-expanded="true"] .player-surface{border-radius:24px;background:rgba(128,128,128,.13)}

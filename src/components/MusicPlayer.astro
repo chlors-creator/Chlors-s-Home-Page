@@ -1,12 +1,13 @@
 ---
 interface Track { title: string; artist: string; cover: string; durationLabel: string; src: string; lyricsSrc: string | null; }
-const { playlist, tracks } = Astro.props as { playlist: { slug: string; title: string }; tracks: Track[] };
+const { playlist = null, tracks = [], showTrackList = true } = Astro.props as { playlist?: { slug: string; title: string } | null; tracks?: Track[]; showTrackList?: boolean };
 const manifest = JSON.stringify(tracks);
+const playerLabel = playlist ? `${playlist.title}播放器` : '主页播放器';
 ---
-<section class="music-player" data-music-player data-playlist-slug={playlist.slug} data-track-manifest={manifest} aria-label={`${playlist.title}播放器`}>
+<section class:list={['music-player', { 'home-music-player': !showTrackList }]} data-music-player data-playlist-slug={playlist?.slug || ''} data-track-manifest={manifest} data-home-player={!showTrackList ? 'true' : undefined} aria-label={playerLabel}>
   <div class="player-surface">
     <button type="button" class="expand-player" data-expand-player aria-expanded="false" aria-label="展开播放器" title="展开播放器">⤢</button>
-    <div class="player-heading"><span class="player-kicker">NOW PLAYING / {playlist.title}</span><strong data-player-title>{tracks.length ? tracks[0].title : '暂无歌曲'}</strong><span data-player-artist>{tracks.length ? tracks[0].artist : '—'}</span></div>
+    <div class="player-heading"><span class="player-kicker">NOW PLAYING{playlist ? ` / ${playlist.title}` : ''}</span><strong data-player-title>{tracks.length ? tracks[0].title : '暂无正在播放'}</strong><span data-player-artist>{tracks.length ? tracks[0].artist : '—'}</span></div>
     <div class="player-controls">
       <button class="mode-button" type="button" data-mode-button aria-label="播放模式：列表循环" title="列表循环">
         <svg data-mode-icon="single" hidden viewBox="0 0 24 24" aria-hidden="true"><path d="M17 4H10a8 8 0 1 0 8 8" /><path class="mode-arrow" d="m16 1 5 3-5 3z" /><path d="m8.25 9.25 2-1v7m-2 0h4" /></svg>
@@ -20,6 +21,6 @@ const manifest = JSON.stringify(tracks);
     <div class="progress-control"><div class="progress-rail" data-progress tabindex="0" role="slider" aria-label="播放进度" aria-valuemin="0" aria-valuemax="0" aria-valuenow="0"><span data-progress-fill></span><span data-progress-thumb></span></div><div class="time-labels"><span data-elapsed>0:00</span><span data-duration>0:00</span></div></div>
     <section class="lyrics-panel" data-lyrics hidden aria-label="实时歌词"><p data-lyrics-empty>纯音乐，请欣赏</p><ol data-lyrics-lines></ol></section>
   </div>
-  {tracks.length ? <ol class="track-list" data-track-list>{tracks.map((track, index) => <li data-track-index={index}><button type="button"><img src={track.cover} alt="" loading="lazy" /><span class="track-copy"><strong>{track.title}</strong><small>{track.artist}</small></span><time>{track.durationLabel}</time></button></li>)}</ol> : <p class="empty-state">暂无歌曲，请将 MP3 放入对应目录</p>}
+  {showTrackList && (tracks.length ? <ol class="track-list" data-track-list>{tracks.map((track, index) => <li data-track-index={index}><button type="button"><img src={track.cover} alt="" loading="lazy" /><span class="track-copy"><strong>{track.title}</strong><small>{track.artist}</small></span><time>{track.durationLabel}</time></button></li>)}</ol> : <p class="empty-state">暂无歌曲，请将 MP3 放入对应目录</p>)}
 </section>
 <script src="../scripts/music-player.ts"></script>
