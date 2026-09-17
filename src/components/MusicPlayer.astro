@@ -23,4 +23,4 @@ const playerLabel = playlist ? `${playlist.title}播放器` : '主页播放器';
   </div>
   {showTrackList && (tracks.length ? <ol class="track-list" data-track-list>{tracks.map((track, index) => <li data-track-index={index}><button type="button"><img src={track.cover} alt="" loading="lazy" /><span class="track-copy"><strong>{track.title}</strong><small>{track.artist}</small></span><time>{track.durationLabel}</time></button></li>)}</ol> : <p class="empty-state">暂无歌曲，请将 MP3 放入对应目录</p>)}
 </section>
-<script src="../scripts/music-player.ts"></script>
+<script src="../scripts/music/index.ts"></script>

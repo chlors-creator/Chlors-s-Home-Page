@@ -4,7 +4,14 @@ import { readFile } from 'node:fs/promises';
 
 const consolePage = await readFile(new URL('../src/pages/console.astro', import.meta.url), 'utf8');
 const loginPage = await readFile(new URL('../src/pages/console/login.astro', import.meta.url), 'utf8');
-const consoleScript = await readFile(new URL('../src/scripts/console.ts', import.meta.url), 'utf8');
+const baseLayout = await readFile(new URL('../src/layouts/BaseLayout.astro', import.meta.url), 'utf8');
+const consoleLayout = await readFile(new URL('../src/layouts/ConsoleLayout.astro', import.meta.url), 'utf8');
+const consoleScript = (await Promise.all([
+  '../src/scripts/console/index.ts',
+  '../src/scripts/console/common.ts',
+  '../src/scripts/console/auth.ts',
+  '../src/scripts/console/uploads.ts',
+].map((path) => readFile(new URL(path, import.meta.url), 'utf8')))).join('\n');
 const sidebar = await readFile(new URL('../src/components/Sidebar.astro', import.meta.url), 'utf8');
 const publishApi = await readFile(new URL('../functions/api/publish.ts', import.meta.url), 'utf8');
 const musicUploadApi = await readFile(new URL('../functions/api/upload-music.ts', import.meta.url), 'utf8');
@@ -21,8 +28,14 @@ test('console initialization survives Astro client-side navigation', () => {
   assert.match(consoleScript, /astro:page-load/);
 });
 
+test('console behavior is isolated from the public layout', () => {
+  assert.doesNotMatch(baseLayout, /scripts\/console\/index\.ts/);
+  assert.match(consoleLayout, /scripts\/console\/index\.ts/);
+  assert.doesNotMatch(consoleScript, /panel\.querySelectorAll/);
+});
+
 test('console login submission stays inside the JSON request flow', () => {
-  assert.match(consoleScript, /login\) login\.addEventListener\('submit'/);
+  assert.match(consoleScript, /login\?\.addEventListener\('submit'/);
   assert.match(consoleScript, /event\.preventDefault\(\)/);
 });
 
