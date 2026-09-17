@@ -1,8 +1,56 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-export async function getStaticPaths(){const posts=await getCollection('posts');const topics=new Map([['poetry','诗集'],['notes','笔记'],['essays','随笔']]);for(const post of posts)topics.set(post.data.topicSlug,post.data.topic);return [...topics].map(([topic,title])=>({params:{topic},props:{title}}));}
-const { title }=Astro.props;
-const posts=(await getCollection('posts',({data})=>data.topic===title)).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
+export async function getStaticPaths() {
+  const posts = await getCollection('posts');
+  const topics = new Map([
+    ['poetry', '诗集'],
+    ['notes', '笔记'],
+    ['essays', '随笔'],
+  ]);
+
+  for (const post of posts) topics.set(post.data.topicSlug, post.data.topic);
+  return [...topics].map(([topic, title]) => ({
+    params: { topic },
+    props: { title },
+  }));
+}
+
+const { title } = Astro.props;
+const posts = (await getCollection('posts', ({ data }) => data.topic === title)).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
 ---
-<BaseLayout title={title}><a class="back-link" href="/topics/" aria-label="返回">← 返回</a><header class="report-head"><div><p class="eyebrow">TOPIC / FILTERED ARCHIVE</p><h1>{title}</h1></div><div class="report-actions"><div class="report-meta">{posts.length} RECORDS<br />SORT: NEWEST</div></div></header><section class="archive-list">{posts.length===0?<p class="empty-state">这个专题暂时没有文章。</p>:posts.map(post=><a class="post" href={`/posts/${post.slug}/`}><time>{post.data.date.toISOString().slice(0,10)}</time><div><h3>{post.data.title}</h3><small>{post.data.description}</small></div><span class="arrow">→</span></a>)}</section></BaseLayout>
+<BaseLayout title={title}>
+  <a class="back-link" href="/topics/" aria-label="返回">← 返回</a>
+
+  <header class="report-head">
+    <div>
+      <p class="eyebrow">TOPIC / FILTERED ARCHIVE</p>
+      <h1>{title}</h1>
+    </div>
+    <div class="report-actions">
+      <div class="report-meta">
+        {posts.length} RECORDS<br />
+        SORT: NEWEST
+      </div>
+    </div>
+  </header>
+
+  <section class="archive-list">
+    {posts.length === 0 ? (
+      <p class="empty-state">这个专题暂时没有文章。</p>
+    ) : (
+      posts.map((post) => (
+        <a class="post" href={`/posts/${post.slug}/`}>
+          <time>{post.data.date.toISOString().slice(0, 10)}</time>
+          <div>
+            <h3>{post.data.title}</h3>
+            <small>{post.data.description}</small>
+          </div>
+          <span class="arrow">→</span>
+        </a>
+      ))
+    )}
+  </section>
+</BaseLayout>

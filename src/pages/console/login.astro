@@ -1,4 +1,28 @@
 ---
 import ConsoleLayout from '../../layouts/ConsoleLayout.astro';
 ---
-<ConsoleLayout title="登录"><section class="console-page console-subpage" data-console-root><a class="back-link" href="/console/">← 返回</a><header class="report-head"><div><p class="eyebrow">PRIVATE CONSOLE / LOGIN</p><h1>登录</h1></div></header><div data-console-status class="console-toast" role="status" aria-live="polite"></div><form class="editor-form" method="post" action="/api/auth" data-login-form><label>账号<input name="username" autocomplete="username" required /></label><label>密码<input name="password" type="password" autocomplete="current-password" required /></label><button type="submit">登录 →</button></form></section></ConsoleLayout>
+<ConsoleLayout title="登录">
+  <section class="console-page console-subpage" data-console-root>
+    <a class="back-link" href="/console/">← 返回</a>
+    <header class="report-head">
+      <div>
+        <p class="eyebrow">PRIVATE CONSOLE / LOGIN</p>
+        <h1>登录</h1>
+      </div>
+    </header>
+
+    <div data-console-status class="console-toast" role="status" aria-live="polite"></div>
+
+    <form class="editor-form" method="post" action="/api/auth" data-login-form>
+      <label>
+        账号
+        <input name="username" autocomplete="username" required />
+      </label>
+      <label>
+        密码
+        <input name="password" type="password" autocomplete="current-password" required />
+      </label>
+      <button type="submit">登录 →</button>
+    </form>
+  </section>
+</ConsoleLayout>

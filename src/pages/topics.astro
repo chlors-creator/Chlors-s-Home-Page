@@ -2,12 +2,38 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
 const defaults = [
-  { slug:'poetry', title:'诗集', description:'收录诗歌、短句与在日常中偶然捕获的意象。' },
-  { slug:'notes', title:'笔记', description:'整理学习过程、工具方法与值得反复查阅的知识。' },
-  { slug:'essays', title:'随笔', description:'记录生活、观察，以及尚未形成定论的思考。' },
+  { slug: 'poetry', title: '诗集', description: '收录诗歌、短句与在日常中偶然捕获的意象。' },
+  { slug: 'notes', title: '笔记', description: '整理学习过程、工具方法与值得反复查阅的知识。' },
+  { slug: 'essays', title: '随笔', description: '记录生活、观察，以及尚未形成定论的思考。' },
 ];
-const posts=await getCollection('posts');
-const topics=[...defaults];
-for(const post of posts){if(!topics.some(topic=>topic.slug===post.data.topicSlug))topics.push({slug:post.data.topicSlug,title:post.data.topic,description:`收录“${post.data.topic}”专题下的文章。`});}
+const posts = await getCollection('posts');
+const topics = [...defaults];
+for (const post of posts) {
+  if (!topics.some((topic) => topic.slug === post.data.topicSlug)) {
+    topics.push({
+      slug: post.data.topicSlug,
+      title: post.data.topic,
+      description: `收录“${post.data.topic}”专题下的文章。`,
+    });
+  }
+}
 ---
-<BaseLayout title="专题"><header class="report-head"><div><p class="eyebrow">CURATED SERIES / {String(topics.length).padStart(2,'0')}</p><h1>专题</h1></div></header><section class="topic-grid">{topics.map((topic,index)=><a class="topic-card" href={`/topics/${topic.slug}/`}><span>COLLECTION_{String(index+1).padStart(3,'0')}</span><h2>{topic.title}</h2><p>{topic.description}</p><i>OPEN SERIES →</i></a>)}</section></BaseLayout>
+<BaseLayout title="专题">
+  <header class="report-head">
+    <div>
+      <p class="eyebrow">CURATED SERIES / {String(topics.length).padStart(2, '0')}</p>
+      <h1>专题</h1>
+    </div>
+  </header>
+
+  <section class="topic-grid">
+    {topics.map((topic, index) => (
+      <a class="topic-card" href={`/topics/${topic.slug}/`}>
+        <span>COLLECTION_{String(index + 1).padStart(3, '0')}</span>
+        <h2>{topic.title}</h2>
+        <p>{topic.description}</p>
+        <i>OPEN SERIES →</i>
+      </a>
+    ))}
+  </section>
+</BaseLayout>

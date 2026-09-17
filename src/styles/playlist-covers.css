@@ -15,7 +15,9 @@
   transform: translateX(18px);
   clip-path: polygon(27% 0, 100% 0, 100% 100%, 0 100%);
   mask-image: linear-gradient(90deg, transparent 0%, #000 30%);
-  transition: opacity .24s ease, transform .24s ease;
+  transition:
+    opacity 0.24s ease,
+    transform 0.24s ease;
 }
 
 .topic-card[class*="playlist-"]:hover::after {
@@ -23,19 +25,35 @@
   transform: translateX(0);
 }
 
-.playlist-electronic::after { background-image: url('/playlist-covers/electronic.webp'); }
+.playlist-electronic::after {
+  background-image: url("/playlist-covers/electronic.webp");
+}
 .playlist-electronic::after {
   left: 52%;
   background-size: auto 100%;
   background-position: right center;
 }
-.playlist-japanese-pop::after { background-image: url('/playlist-covers/japanese-pop.webp'); }
-.playlist-chinese-pop::after { background-image: url('/playlist-covers/chinese-pop.jpg'); }
-.playlist-post-rock-punk::after { background-image: url('/playlist-covers/post-rock-punk.webp'); }
-.playlist-english-post-punk::after { background-image: url('/playlist-covers/english-post-punk.jpg'); }
-.playlist-russian-post-punk::after { background-image: url('/playlist-covers/russian-post-punk.webp'); }
-.playlist-chinese-post-punk::after { background-image: url('/playlist-covers/chinese-post-punk.jpg'); }
-.playlist-post-rock::after { background-image: url('/playlist-covers/post-rock.webp'); }
+.playlist-japanese-pop::after {
+  background-image: url("/playlist-covers/japanese-pop.webp");
+}
+.playlist-chinese-pop::after {
+  background-image: url("/playlist-covers/chinese-pop.jpg");
+}
+.playlist-post-rock-punk::after {
+  background-image: url("/playlist-covers/post-rock-punk.webp");
+}
+.playlist-english-post-punk::after {
+  background-image: url("/playlist-covers/english-post-punk.jpg");
+}
+.playlist-russian-post-punk::after {
+  background-image: url("/playlist-covers/russian-post-punk.webp");
+}
+.playlist-chinese-post-punk::after {
+  background-image: url("/playlist-covers/chinese-post-punk.jpg");
+}
+.playlist-post-rock::after {
+  background-image: url("/playlist-covers/post-rock.webp");
+}
 .playlist-english-post-punk::after,
 .playlist-russian-post-punk::after,
 .playlist-chinese-post-punk::after,
@@ -45,17 +63,29 @@
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
-.playlist-phonk::after { background-image: url('/playlist-covers/phonk.webp'); }
-.playlist-math-rock::after { background-image: url('/playlist-covers/math-rock.webp'); }
-.playlist-midwest-emo::after { background-image: url('/playlist-covers/midwest-emo.webp'); }
-.playlist-piano::after { background-image: url('/playlist-covers/piano.webp'); }
+.playlist-phonk::after {
+  background-image: url("/playlist-covers/phonk.webp");
+}
+.playlist-math-rock::after {
+  background-image: url("/playlist-covers/math-rock.webp");
+}
+.playlist-midwest-emo::after {
+  background-image: url("/playlist-covers/midwest-emo.webp");
+}
+.playlist-piano::after {
+  background-image: url("/playlist-covers/piano.webp");
+}
 
 html[data-theme-choice="black"] .topic-card[class*="playlist-"]::before {
   background: #fff;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .topic-card[class*="playlist-"]::after { transition: none; }
+  .topic-card[class*="playlist-"]::after {
+    transition: none;
+  }
 }
 
-.playlist-vocaloid::after { background-image: url('/playlist-covers/vocaloid.jpg'); }
+.playlist-vocaloid::after {
+  background-image: url("/playlist-covers/vocaloid.jpg");
+}

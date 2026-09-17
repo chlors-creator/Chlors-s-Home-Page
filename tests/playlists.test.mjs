@@ -1,15 +1,11 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
-import ts from 'typescript';
 
-const source = await readFile(new URL('../src/data/playlists.ts', import.meta.url), 'utf8');
-const { outputText } = ts.transpileModule(source, {
-  compilerOptions: { module: ts.ModuleKind.ESNext, target: ts.ScriptTarget.ES2022 },
-});
-const { PLAYLISTS, getPlaylist } = await import(
-  `data:text/javascript;base64,${Buffer.from(outputText).toString('base64')}`,
-);
+const configSource = await readFile(new URL('../src/data/playlists.json', import.meta.url), 'utf8');
+const adapterSource = await readFile(new URL('../src/data/playlists.ts', import.meta.url), 'utf8');
+const PLAYLISTS = JSON.parse(configSource);
+const getPlaylist = (slug) => PLAYLISTS.find((playlist) => playlist.slug === slug);
 
 test('exposes the nine playlist categories in display order', () => {
   assert.deepEqual(
@@ -31,4 +27,12 @@ test('exposes the nine playlist categories in display order', () => {
 test('finds a playlist by slug and returns undefined for an unknown slug', () => {
   assert.equal(getPlaylist('piano')?.directory, 'piano');
   assert.equal(getPlaylist('unknown'), undefined);
+});
+
+test('uses the shared JSON config from the TypeScript adapter', () => {
+  assert.match(adapterSource, /from ['"]\.\/playlists\.json['"]/);
+  assert.deepEqual(
+    PLAYLISTS.find((playlist) => playlist.slug === 'post-rock-punk')?.children.map(({ slug }) => slug),
+    ['post-rock', 'russian-post-punk', 'english-post-punk', 'chinese-post-punk'],
+  );
 });

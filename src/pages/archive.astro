@@ -1,12 +1,44 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { getCollection } from 'astro:content';
-const posts = (await getCollection('posts')).sort((a,b)=>b.data.date.valueOf()-a.data.date.valueOf());
+const posts = (await getCollection('posts')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf(),
+);
 const postsByYear = [...posts.reduce((groups, post) => {
   const year = post.data.date.toISOString().slice(0, 4);
   groups.set(year, [...(groups.get(year) ?? []), post]);
   return groups;
 }, new Map<string, typeof posts>())];
 ---
-<BaseLayout title="归档"><header class="report-head"><div><p class="eyebrow">ARCHIVE / INDEX</p><h1>归档</h1></div><div class="report-actions"><div class="report-meta">{posts.length} RECORDS<br />SORT: NEWEST</div></div></header><section class="archive-list">{postsByYear.map(([year, yearPosts])=><div class="archive-year"><div class="year"><span>{year}</span></div>{yearPosts?.map(post=><a class="post" href={`/posts/${post.slug}/`}><time>{post.data.date.toISOString().slice(5,10)}</time><h3>{post.data.title}</h3><span class="arrow">→</span></a>)}</div>)}</section></BaseLayout>
+<BaseLayout title="归档">
+  <header class="report-head">
+    <div>
+      <p class="eyebrow">ARCHIVE / INDEX</p>
+      <h1>归档</h1>
+    </div>
+    <div class="report-actions">
+      <div class="report-meta">
+        {posts.length} RECORDS<br />
+        SORT: NEWEST
+      </div>
+    </div>
+  </header>
+
+  <section class="archive-list">
+    {postsByYear.map(([year, yearPosts]) => (
+      <div class="archive-year">
+        <div class="year">
+          <span>{year}</span>
+        </div>
+        {yearPosts?.map((post) => (
+          <a class="post" href={`/posts/${post.slug}/`}>
+            <time>{post.data.date.toISOString().slice(5, 10)}</time>
+            <h3>{post.data.title}</h3>
+            <span class="arrow">→</span>
+          </a>
+        ))}
+      </div>
+    ))}
+  </section>
+</BaseLayout>
 
