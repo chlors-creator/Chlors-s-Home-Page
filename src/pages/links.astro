@@ -2,7 +2,8 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 const links = [
   ['乃春的Github主页', 'chlors-creator', 'https://github.com/'],
-  ['朋友的站点', '在这里填写对方的网站描述。', '#'],
+  ['ruguo0119的Github主页', 'ruguo0119的GitHub主页', 'https://github.com/ruguo0119'],
+  ['MercyGrey的Github主页', 'MercyGrey的GitHub主页', 'https://github.com/MercyGrey'],
   ['Phaleristics in China', '勋章中国·论坛', 'https://forum.phaleric.com/'],
 ];
 ---
@@ -19,7 +20,7 @@ const links = [
       <a
         class:list={[
           'topic-card',
-          link[0] === '乃春的Github主页' && 'github-link',
+          link[2].startsWith('https://github.com/') && 'github-link',
           link[0] === 'Phaleristics in China' && 'phaleristics-link',
         ]}
         href={link[2]}
