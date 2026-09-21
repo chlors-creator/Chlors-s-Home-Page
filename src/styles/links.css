@@ -55,12 +55,42 @@ html[data-theme-choice="black"] .topic-card.github-link::after {
   transform: translate(0, 0) scale(1);
 }
 
+.topic-card.ai-pet-link {
+  position: relative;
+  overflow: hidden;
+}
+
+.topic-card.ai-pet-link::after {
+  content: "";
+  position: absolute;
+  right: 20px;
+  bottom: 18px;
+  width: 112px;
+  height: 112px;
+  background: url("/50.svg") center / contain no-repeat;
+  opacity: 0;
+  transform: translate(12px, 12px) scale(0.86);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s ease;
+  pointer-events: none;
+}
+
+.topic-card.ai-pet-link:hover::after {
+  opacity: 1;
+  transform: translate(0, 0) scale(1);
+}
+
 @media (prefers-reduced-motion: reduce) {
   .topic-card.github-link::after {
     transition: none;
   }
 
   .topic-card.phaleristics-link::after {
+    transition: none;
+  }
+
+  .topic-card.ai-pet-link::after {
     transition: none;
   }
 }
