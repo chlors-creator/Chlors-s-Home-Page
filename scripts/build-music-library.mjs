@@ -26,7 +26,40 @@ function encodeUrlPath(path) {
     .join("/");
 }
 
-function imageExtension(mimeType) {
+function imageExtension(data, mimeType) {
+  if (data?.length >= 12) {
+    if (data[0] === 0xff && data[1] === 0xd8 && data[2] === 0xff)
+      return "jpg";
+    if (
+      data[0] === 0x89 &&
+      data[1] === 0x50 &&
+      data[2] === 0x4e &&
+      data[3] === 0x47 &&
+      data[4] === 0x0d &&
+      data[5] === 0x0a &&
+      data[6] === 0x1a &&
+      data[7] === 0x0a
+    )
+      return "png";
+    if (data.toString("ascii", 0, 3) === "GIF") return "gif";
+    if (
+      data.toString("ascii", 0, 4) === "RIFF" &&
+      data.toString("ascii", 8, 12) === "WEBP"
+    )
+      return "webp";
+    if (data.toString("ascii", 0, 2) === "BM") return "bmp";
+    if (
+      (data[0] === 0x49 && data[1] === 0x49 && data[2] === 0x2a && data[3] === 0x00) ||
+      (data[0] === 0x4d && data[1] === 0x4d && data[2] === 0x00 && data[3] === 0x2a)
+    )
+      return "tif";
+    if (
+      data.toString("ascii", 4, 8) === "ftyp" &&
+      ["avif", "avis"].includes(data.toString("ascii", 8, 12))
+    )
+      return "avif";
+  }
+
   const subtype = mimeType?.split("/")[1]?.toLowerCase();
   return subtype === "jpeg"
     ? "jpg"
@@ -104,7 +137,7 @@ export async function scanMusicLibrary({
             const image = metadata.common.picture?.[0];
             let cover = "/generated/music-covers/default.svg";
             if (image?.data) {
-              const coverName = `${createHash("sha1").update(image.data).digest("hex")}.${imageExtension(image.format)}`;
+              const coverName = `${createHash("sha1").update(image.data).digest("hex")}.${imageExtension(image.data, image.format)}`;
               await writeFile(join(coversRoot, coverName), image.data);
               cover = `/generated/music-covers/${coverName}`;
             }
@@ -157,7 +190,7 @@ export async function scanMusicLibrary({
         const image = metadata.common.picture?.[0];
         let cover = "/generated/music-covers/default.svg";
         if (image?.data) {
-          const coverName = `${createHash("sha1").update(image.data).digest("hex")}.${imageExtension(image.format)}`;
+          const coverName = `${createHash("sha1").update(image.data).digest("hex")}.${imageExtension(image.data, image.format)}`;
           await writeFile(join(coversRoot, coverName), image.data);
           cover = `/generated/music-covers/${coverName}`;
         }

@@ -1,11 +1,11 @@
 {
-  "generatedAt": "2026-09-24T12:12:26.305Z",
+  "generatedAt": "2026-09-24T12:25:06.097Z",
   "playlists": {
     "electronic": [
       {
         "id": "98d9d74bf407d0c38f450680e7295c85ae7dba51",
         "src": "/music/electronic/Milkoi%20-%20Shichirigahama.mp3",
-        "cover": "/generated/music-covers/721458a71db5963f768a68cb91f521729f34d81e.jpg",
+        "cover": "/generated/music-covers/721458a71db5963f768a68cb91f521729f34d81e.png",
         "title": "Shichirigahama",
         "artist": "Milkoi",
         "duration": 231,
@@ -38,7 +38,7 @@
       {
         "id": "5f12842df5f7a7fbb0d54a6d408a24ba4d98defd",
         "src": "/music/vocaloid/23.exe%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20ochatime.mp3",
-        "cover": "/generated/music-covers/5b204e2360f22395b2a5f49ba8b7e071d3e22561.jpg",
+        "cover": "/generated/music-covers/5b204e2360f22395b2a5f49ba8b7e071d3e22561.png",
         "title": "ochatime",
         "artist": "23.exe",
         "duration": 233,
@@ -48,7 +48,7 @@
       {
         "id": "5c5123f63024523355e1cfbbaa4b6ec246c4f891",
         "src": "/music/vocaloid/%E7%A8%B2%E8%91%89%E6%9B%87%2C%E6%AD%8C%E6%84%9B%E3%83%A6%E3%82%AD%20-%20%E3%83%A9%E3%82%B0%E3%83%88%E3%83%AC%E3%82%A4%E3%83%B3.mp3",
-        "cover": "/generated/music-covers/85723bbbfe779e8d290bc467105e644076b7060b.jpg",
+        "cover": "/generated/music-covers/85723bbbfe779e8d290bc467105e644076b7060b.png",
         "title": "ラグトレイン",
         "artist": "稲葉曇",
         "duration": 252,
@@ -78,7 +78,7 @@
       {
         "id": "7b41779ebc0fd5d1327254b2943afc478b82ee04",
         "src": "/music/vocaloid/Ayase%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20%E3%83%95%E3%82%A3%E3%82%AF%E3%82%B7%E3%83%A7%E3%83%B3%E3%83%96%E3%83%AB%E3%83%BC.mp3",
-        "cover": "/generated/music-covers/12071fb5abe26e0929e41ae8d49d40c6d82ff106.jpg",
+        "cover": "/generated/music-covers/12071fb5abe26e0929e41ae8d49d40c6d82ff106.png",
         "title": "フィクションブルー",
         "artist": "Ayase",
         "duration": 215,
@@ -88,7 +88,7 @@
       {
         "id": "fada616d99d6c4651833a530b805eb994b580649",
         "src": "/music/vocaloid/GUMI%2C%E3%83%A6%E3%83%AA%E3%82%A4%E3%83%BB%E3%82%AB%E3%83%8E%E3%83%B3%20-%20%E3%81%A0%E3%82%8C%E3%81%8B%E3%81%AE%E5%BF%83%E8%87%93%E3%81%AB%E3%81%AA%E3%82%8C%E3%81%9F%E3%81%AA%E3%82%89.mp3",
-        "cover": "/generated/music-covers/6ec0817f85c52601531dde496692de9dd28bdb23.jpg",
+        "cover": "/generated/music-covers/6ec0817f85c52601531dde496692de9dd28bdb23.png",
         "title": "だれかの心臓になれたなら",
         "artist": "GUMI",
         "duration": 230,
@@ -108,7 +108,7 @@
       {
         "id": "d199882cc676b4c16c26d05179d351c299294d65",
         "src": "/music/vocaloid/Motohiro%20Nakashima%20-%20Song%20Before%20You%20Came.mp3",
-        "cover": "/generated/music-covers/eb404f450a3f2b3592a5b7ff3b311719b957b0c5.jpg",
+        "cover": "/generated/music-covers/eb404f450a3f2b3592a5b7ff3b311719b957b0c5.png",
         "title": "Song Before You Came",
         "artist": "Motohiro Nakashima",
         "duration": 344,
@@ -128,7 +128,7 @@
       {
         "id": "7c8fe733974943b92ccafc66e2a61dce3036a2b4",
         "src": "/music/vocaloid/Mwk%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20One%20Day.mp3",
-        "cover": "/generated/music-covers/c77ef34626cc1e14c5fc3194d2a24b16708690d5.jpg",
+        "cover": "/generated/music-covers/c77ef34626cc1e14c5fc3194d2a24b16708690d5.png",
         "title": "One Day",
         "artist": "Mwk",
         "duration": 288,
@@ -138,7 +138,7 @@
       {
         "id": "9ba442fa36a2cd43c3b9deaf86b668798498afcb",
         "src": "/music/vocaloid/Neru%2C%E9%8F%A1%E9%9F%B3%E3%83%AA%E3%83%B3%20-%20%E3%83%AD%E3%82%B9%E3%83%88%E3%83%AF%E3%83%B3%E3%81%AE%E5%8F%B7%E5%93%AD.mp3",
-        "cover": "/generated/music-covers/8893f8fdf7d301a48e36591ddc30aa270cb78319.jpg",
+        "cover": "/generated/music-covers/8893f8fdf7d301a48e36591ddc30aa270cb78319.png",
         "title": "ロストワンの号哭",
         "artist": "Neru",
         "duration": 217,
@@ -148,7 +148,7 @@
       {
         "id": "ffd4d6a4c79988dee4739b6560228f09ab319f0f",
         "src": "/music/vocaloid/niqizhuo%2Cyuigot%2C%E7%A8%B2%E8%91%89%E6%9B%87%20-%20Lost%20Umbrella(yuigot%20Remix).mp3",
-        "cover": "/generated/music-covers/83cac1542e80a59db9eaf03bdba9301b306b3fa0.jpg",
+        "cover": "/generated/music-covers/83cac1542e80a59db9eaf03bdba9301b306b3fa0.png",
         "title": "Lost Umbrella(yuigot Remix)",
         "artist": "niqizhuo",
         "duration": 190,
@@ -158,7 +158,7 @@
       {
         "id": "593cab7de0e9ceb68b61883043071cf29b8839e7",
         "src": "/music/vocaloid/PoppoOVO%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%2C%E9%87%8D%E9%9F%B3%E3%83%86%E3%83%88%20-%20%E5%99%A9%E6%A2%A6Nightmare%EF%BC%88Feat.%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%2C%E9%87%8D%E9%9F%B3%E3%83%86%E3%83%88%2C%E9%9F%B3%E8%A1%97%E3%82%A6%E3%83%8A%EF%BC%89.mp3",
-        "cover": "/generated/music-covers/5dee45d87943c206564326f3ee9f14ab75ee3008.jpg",
+        "cover": "/generated/music-covers/5dee45d87943c206564326f3ee9f14ab75ee3008.png",
         "title": "噩梦Nightmare（Feat.初音ミク,重音テト,音街ウナ）",
         "artist": "PoppoOVO",
         "duration": 184,
@@ -178,7 +178,7 @@
       {
         "id": "8648578ff6ba680f43f8a6b6ff4a6f5098205d28",
         "src": "/music/vocaloid/wowaka%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20%E3%81%9B%E3%81%8B%E3%81%84%E3%81%AE%E3%81%99%E3%81%B9%E3%81%A6.mp3",
-        "cover": "/generated/music-covers/897d4836f7ac762d6a33fa53f7b5a9a38dc583be.jpg",
+        "cover": "/generated/music-covers/897d4836f7ac762d6a33fa53f7b5a9a38dc583be.png",
         "title": "せかいのすべて",
         "artist": "wowaka",
         "duration": 144,
@@ -188,7 +188,7 @@
       {
         "id": "1fe78ae2f195b6c54eb9c6eec47f07985783b9d9",
         "src": "/music/vocaloid/wowaka%2C%E5%88%9D%E9%9F%B3%E3%83%9F%E3%82%AF%20-%20%E3%83%86%E3%83%8E%E3%83%92%E3%83%A9.mp3",
-        "cover": "/generated/music-covers/d16f8d925b59af529673c658241b8e49b57c70d0.jpg",
+        "cover": "/generated/music-covers/d16f8d925b59af529673c658241b8e49b57c70d0.png",
         "title": "テノヒラ",
         "artist": "wowaka",
         "duration": 277,
@@ -218,7 +218,7 @@
       {
         "id": "b3e6d38221ae05b664a0e711d9c2efc56d007576",
         "src": "/music/vocaloid/%E3%81%AD%E3%81%93%E3%81%BC%E3%83%BC%E3%82%8D%2CIA%20-%20%E3%81%B2%E3%81%AD%E3%81%8F%E3%82%8C%E3%83%8D%E3%82%B8%E3%81%A8%E9%9B%A8.mp3",
-        "cover": "/generated/music-covers/c140359168ab7f2e174d21414cb67d8243fb9f16.jpg",
+        "cover": "/generated/music-covers/c140359168ab7f2e174d21414cb67d8243fb9f16.png",
         "title": "ひねくれネジと雨",
         "artist": "ねこぼーろ",
         "duration": 278,
@@ -302,7 +302,7 @@
         "id": "2369c3c435d4892703dffb62b57c2e23f64eca18",
         "src": "/music/post-rock-punk/post-rock/Armand%20Tanzarian%20-%20I%20Miss%20The%20Happy%20Times%20We%20Had%20As%20I%20Walked%20Alone%20On%20The%20Shoreline.mp3",
         "lyricsSrc": "/music/post-rock-punk/post-rock/Armand%20Tanzarian%20-%20I%20Miss%20The%20Happy%20Times%20We%20Had%20As%20I%20Walked%20Alone%20On%20The%20Shoreline.lrc",
-        "cover": "/generated/music-covers/eb979c903caf166de1ef321d161bb6af58d7834e.jpg",
+        "cover": "/generated/music-covers/eb979c903caf166de1ef321d161bb6af58d7834e.png",
         "title": "I Miss The Happy Times We Had As I Walked Alone On The Shoreline",
         "artist": "Armand Tanzarian",
         "duration": 538,
@@ -472,7 +472,7 @@
         "id": "88deb0a28d9668db9b3cba4a450c800f703039e0",
         "src": "/music/post-rock-punk/post-rock/naan%20-%20last%20exit.mp3",
         "lyricsSrc": "/music/post-rock-punk/post-rock/naan%20-%20last%20exit.lrc",
-        "cover": "/generated/music-covers/a56a37f17f076a6992d25e528909aef7e1d66266.jpg",
+        "cover": "/generated/music-covers/a56a37f17f076a6992d25e528909aef7e1d66266.png",
         "title": "last exit",
         "artist": "naan",
         "duration": 490,
@@ -894,7 +894,7 @@
         "id": "769e4938367c913892d4ea34bdf5f29ec49c0ab6",
         "src": "/music/post-rock-punk/russian-post-punk/%D0%94%D0%94%D0%A2%20-%20%D0%9C%D0%B5%D1%82%D0%B5%D0%BB%D1%8C.mp3",
         "lyricsSrc": "/music/post-rock-punk/russian-post-punk/%D0%94%D0%94%D0%A2%20-%20%D0%9C%D0%B5%D1%82%D0%B5%D0%BB%D1%8C.lrc",
-        "cover": "/generated/music-covers/da407e0351fdcd01eaa72a65d6a837773e058b40.jpg",
+        "cover": "/generated/music-covers/da407e0351fdcd01eaa72a65d6a837773e058b40.png",
         "title": "Метель",
         "artist": "ДДТ",
         "duration": 460,
@@ -944,7 +944,7 @@
         "id": "f0e6d762aaf32625861db38aa44b5ecd93054b0f",
         "src": "/music/post-rock-punk/russian-post-punk/%D0%9A%D0%B8%D0%BD%D0%BE%20-%20%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0%20%D0%BA%D1%80%D0%BE%D0%B2%D0%B8.mp3",
         "lyricsSrc": "/music/post-rock-punk/russian-post-punk/%D0%9A%D0%B8%D0%BD%D0%BE%20-%20%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0%20%D0%BA%D1%80%D0%BE%D0%B2%D0%B8.lrc",
-        "cover": "/generated/music-covers/5cd0870cb4b95f32c87ea15e18147164792eed01.jpg",
+        "cover": "/generated/music-covers/5cd0870cb4b95f32c87ea15e18147164792eed01.png",
         "title": "Группа крови",
         "artist": "Кино",
         "duration": 284,
@@ -1108,7 +1108,7 @@
         "id": "1203620fb699bb2b602f61d35aaf0d83649dfddb",
         "src": "/music/post-rock-punk/chinese-post-punk/%E5%91%A8%E9%BA%9F%E4%B8%8E%E5%B0%91%E5%B9%B4%E5%AE%AB%E9%81%97%E4%BA%8B%20-%20%E5%8D%83%E7%A6%A7%E4%B8%96%E4%BB%A3%EF%BC%88feat.%E4%BB%98%E8%88%AA%EF%BC%89.mp3",
         "lyricsSrc": "/music/post-rock-punk/chinese-post-punk/%E5%91%A8%E9%BA%9F%E4%B8%8E%E5%B0%91%E5%B9%B4%E5%AE%AB%E9%81%97%E4%BA%8B%20-%20%E5%8D%83%E7%A6%A7%E4%B8%96%E4%BB%A3%EF%BC%88feat.%E4%BB%98%E8%88%AA%EF%BC%89.lrc",
-        "cover": "/generated/music-covers/2d7c9f5566c75d203b0141fe0d393defc066dd73.jpg",
+        "cover": "/generated/music-covers/2d7c9f5566c75d203b0141fe0d393defc066dd73.png",
         "title": "千禧世代（feat.付航）",
         "artist": "周麟与少年宫遗事",
         "duration": 198,
@@ -1128,7 +1128,7 @@
         "id": "3205476ecaa3a5d0cdcc31b35ce3cd868049bfa1",
         "src": "/music/post-rock-punk/chinese-post-punk/%E5%91%A8%E9%BA%9F%E4%B8%8E%E5%B0%91%E5%B9%B4%E5%AE%AB%E9%81%97%E4%BA%8B%20-%20%E6%B5%B7%E5%8F%82%E5%B4%B4.mp3",
         "lyricsSrc": "/music/post-rock-punk/chinese-post-punk/%E5%91%A8%E9%BA%9F%E4%B8%8E%E5%B0%91%E5%B9%B4%E5%AE%AB%E9%81%97%E4%BA%8B%20-%20%E6%B5%B7%E5%8F%82%E5%B4%B4.lrc",
-        "cover": "/generated/music-covers/f17cf896978f27d5c209b1abf3db2f524f29e223.jpg",
+        "cover": "/generated/music-covers/f17cf896978f27d5c209b1abf3db2f524f29e223.png",
         "title": "海参崴",
         "artist": "周麟与少年宫遗事",
         "duration": 187,
@@ -1149,7 +1149,7 @@
       {
         "id": "f73c15bc9008452339592d7773894375f5043576",
         "src": "/music/post-rock-punk/chinese-post-punk/%E5%91%A8%E9%BA%9F%E4%B8%8E%E5%B0%91%E5%B9%B4%E5%AE%AB%E9%81%97%E4%BA%8B%20-%20%E6%B5%B7%E5%8F%82%E5%B4%B4.mp3",
-        "cover": "/generated/music-covers/f17cf896978f27d5c209b1abf3db2f524f29e223.jpg",
+        "cover": "/generated/music-covers/f17cf896978f27d5c209b1abf3db2f524f29e223.png",
         "title": "海参崴",
         "artist": "周麟与少年宫遗事",
         "duration": 187,
@@ -1179,7 +1179,7 @@
       {
         "id": "dde9cdb149d296b43156124303a29d13e41facdd",
         "src": "/music/post-rock-punk/chinese-post-punk/%E5%91%A8%E9%BA%9F%E4%B8%8E%E5%B0%91%E5%B9%B4%E5%AE%AB%E9%81%97%E4%BA%8B%20-%20%E5%8D%83%E7%A6%A7%E4%B8%96%E4%BB%A3%EF%BC%88feat.%E4%BB%98%E8%88%AA%EF%BC%89.mp3",
-        "cover": "/generated/music-covers/2d7c9f5566c75d203b0141fe0d393defc066dd73.jpg",
+        "cover": "/generated/music-covers/2d7c9f5566c75d203b0141fe0d393defc066dd73.png",
         "title": "千禧世代（feat.付航）",
         "artist": "周麟与少年宫遗事",
         "duration": 198,
@@ -1329,7 +1329,7 @@
       {
         "id": "dc54390b9b020f4d4fdcb9994d7ca10e55afe12d",
         "src": "/music/post-rock-punk/post-rock/Armand%20Tanzarian%20-%20I%20Miss%20The%20Happy%20Times%20We%20Had%20As%20I%20Walked%20Alone%20On%20The%20Shoreline.mp3",
-        "cover": "/generated/music-covers/eb979c903caf166de1ef321d161bb6af58d7834e.jpg",
+        "cover": "/generated/music-covers/eb979c903caf166de1ef321d161bb6af58d7834e.png",
         "title": "I Miss The Happy Times We Had As I Walked Alone On The Shoreline",
         "artist": "Armand Tanzarian",
         "duration": 538,
@@ -1499,7 +1499,7 @@
       {
         "id": "650ff44f6558eeff57f638354a00ee4d28d50eae",
         "src": "/music/post-rock-punk/post-rock/naan%20-%20last%20exit.mp3",
-        "cover": "/generated/music-covers/a56a37f17f076a6992d25e528909aef7e1d66266.jpg",
+        "cover": "/generated/music-covers/a56a37f17f076a6992d25e528909aef7e1d66266.png",
         "title": "last exit",
         "artist": "naan",
         "duration": 490,
@@ -1889,7 +1889,7 @@
       {
         "id": "dd302b64083abb3f381a9c20b68b54dfac43e14a",
         "src": "/music/post-rock-punk/russian-post-punk/%D0%94%D0%94%D0%A2%20-%20%D0%9C%D0%B5%D1%82%D0%B5%D0%BB%D1%8C.mp3",
-        "cover": "/generated/music-covers/da407e0351fdcd01eaa72a65d6a837773e058b40.jpg",
+        "cover": "/generated/music-covers/da407e0351fdcd01eaa72a65d6a837773e058b40.png",
         "title": "Метель",
         "artist": "ДДТ",
         "duration": 460,
@@ -1939,7 +1939,7 @@
       {
         "id": "fc6e8a9fcdc4bda3ba4951ceae487d5b12905b63",
         "src": "/music/post-rock-punk/russian-post-punk/%D0%9A%D0%B8%D0%BD%D0%BE%20-%20%D0%93%D1%80%D1%83%D0%BF%D0%BF%D0%B0%20%D0%BA%D1%80%D0%BE%D0%B2%D0%B8.mp3",
-        "cover": "/generated/music-covers/5cd0870cb4b95f32c87ea15e18147164792eed01.jpg",
+        "cover": "/generated/music-covers/5cd0870cb4b95f32c87ea15e18147164792eed01.png",
         "title": "Группа крови",
         "artist": "Кино",
         "duration": 284,
@@ -2507,7 +2507,7 @@
       {
         "id": "3d358e772d3683ba59c1d288c5ee56940d2a232a",
         "src": "/music/piano/%E4%B8%AD%E5%B2%9B%E5%B2%AC%20-%20Vision.mp3",
-        "cover": "/generated/music-covers/6d81a40bfa55ccec9f99901d107a5dfd848d44f4.jpg",
+        "cover": "/generated/music-covers/6d81a40bfa55ccec9f99901d107a5dfd848d44f4.png",
         "title": "Vision",
         "artist": "中岛岬",
         "duration": 132,
