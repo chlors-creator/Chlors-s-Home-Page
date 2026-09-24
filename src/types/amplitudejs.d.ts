@@ -10,6 +10,7 @@ declare module 'amplitudejs' {
     play(): void;
     playSongAtIndex(index: number): void;
     pause(): void;
+    stop(): void;
     setVolume(volume: number): void;
     setSongPlayedPercentage(percentage: number): void;
   };

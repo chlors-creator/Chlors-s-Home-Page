@@ -25,6 +25,7 @@ function readMode(): PlaybackMode {
 export function createController(): PlayerController {
   const listeners = new Set<() => void>();
   let ended = false;
+  let detachAudio: (() => void) | null = null;
 
   const controller: PlayerController = {
     queue: null,
@@ -48,6 +49,13 @@ export function createController(): PlayerController {
       );
       ended = false;
       if (queueChanged || !controller.audio) {
+        if (controller.audio) {
+          Amplitude.stop();
+          controller.audio.pause();
+          detachAudio?.();
+          detachAudio = null;
+          controller.audio = null;
+        }
         const savedVolume = Number(localStorage.getItem("music-volume") ?? 0.8);
         Amplitude.init({
           songs: queue.tracks.map((track) => ({
@@ -78,7 +86,8 @@ export function createController(): PlayerController {
           },
         });
         controller.audio = Amplitude.getAudio();
-        for (const event of [
+        const audio = controller.audio;
+        const events = [
           "play",
           "playing",
           "pause",
@@ -87,12 +96,17 @@ export function createController(): PlayerController {
           "durationchange",
           "seeked",
           "error",
-        ])
-          controller.audio.addEventListener(event, controller.notify);
-        controller.audio.addEventListener("ended", () => {
+        ];
+        const onEnded = () => {
           ended = true;
           controller.notify();
-        });
+        };
+        events.forEach((event) => audio.addEventListener(event, controller.notify));
+        audio.addEventListener("ended", onEnded);
+        detachAudio = () => {
+          events.forEach((event) => audio.removeEventListener(event, controller.notify));
+          audio.removeEventListener("ended", onEnded);
+        };
       }
       Amplitude.playSongAtIndex(controller.current);
       controller.notify();
