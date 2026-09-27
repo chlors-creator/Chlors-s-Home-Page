@@ -1,13 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import DailyQuote from '../components/DailyQuote.astro';
 import MusicPlayer from '../components/MusicPlayer.astro';
 ---
 <BaseLayout title="主页">
-  <section class="home-hero">
-    <p>
-      『桐叶晨飘蛰夜语。旅思秋光，黯黯长安路。<br />
-      忽记横戈盘马处，歌关清渭应如故。』
-    </p>
-  </section>
+  <DailyQuote />
   <MusicPlayer showTrackList={false} />
 </BaseLayout>

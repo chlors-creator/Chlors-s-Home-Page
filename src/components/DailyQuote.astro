@@ -1,0 +1,94 @@
+---
+import dailyQuotes from '../data/daily-quotes.json';
+
+const quotes = dailyQuotes as Array<{
+  date: string;
+  quote: string;
+  source: string;
+}>;
+---
+
+<aside
+  class="daily-quote"
+  data-daily-quote
+  data-quotes={JSON.stringify(quotes)}
+  aria-label="每日一句"
+>
+  <div class="daily-quote-heading">
+    <span>每日一句</span>
+    <time data-daily-quote-date></time>
+  </div>
+  <blockquote data-daily-quote-text>今日暂无语录</blockquote>
+  <cite data-daily-quote-source hidden></cite>
+</aside>
+
+<script is:inline data-astro-rerun>
+  (() => {
+    const today = new Date();
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const monthDay = `${month}-${day}`;
+
+    document.querySelectorAll('[data-daily-quote]').forEach((root) => {
+      const quotes = JSON.parse(root.dataset.quotes || '[]');
+      const quote = quotes.find((entry) => entry.date === monthDay);
+      const text = root.querySelector('[data-daily-quote-text]');
+      const source = root.querySelector('[data-daily-quote-source]');
+      const date = root.querySelector('[data-daily-quote-date]');
+
+      if (text) text.textContent = quote?.quote || '今日暂无语录';
+      if (source) {
+        source.textContent = quote?.source ? `— ${quote.source}` : '';
+        source.hidden = !quote?.source;
+      }
+      if (date) {
+        date.textContent = `${month}月${day}日`;
+        date.setAttribute('datetime', `${year}-${month}-${day}`);
+      }
+    });
+  })();
+</script>
+
+<style>
+  .daily-quote {
+    margin-bottom: 30px;
+    padding: 24px 28px 22px;
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    background: color-mix(in srgb, var(--paper) 86%, var(--accent) 14%);
+  }
+
+  .daily-quote-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+    color: var(--accent);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+
+  .daily-quote-heading time {
+    color: var(--muted);
+    letter-spacing: 0;
+  }
+
+  .daily-quote blockquote {
+    margin: 16px 0 8px;
+    font-size: clamp(16px, 2vw, 21px);
+    line-height: 1.9;
+  }
+
+  .daily-quote cite {
+    display: block;
+    color: var(--muted);
+    font-size: 12px;
+    font-style: normal;
+  }
+
+  @media (max-width: 760px) {
+    .daily-quote {
+      padding: 20px 18px 18px;
+    }
+  }
+</style>
