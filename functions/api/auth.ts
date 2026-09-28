@@ -1,95 +1,14 @@
-import { json } from "../lib/http";
+import { isSameOrigin, timingSafeEqualText } from './security';
 
-interface Env {
-  ADMIN_USERNAME: string;
-  ADMIN_PASSWORD: string;
-}
-const cookieName = "console_session";
-
+interface Env { ADMIN_USERNAME: string; ADMIN_PASSWORD: string }
+const cookieName = (request: Request) => new URL(request.url).protocol === 'https:' ? '__Host-console_session' : 'console_session';
+const json = (body: unknown, status = 200, headers: HeadersInit = {}) => new Response(JSON.stringify(body), { status, headers: { 'content-type': 'application/json; charset=utf-8', 'cache-control': 'no-store', ...headers } });
 const sessionCookie = (request: Request, value: string, maxAge: number) => {
-  const secure = new URL(request.url).protocol === "https:" ? "; Secure" : "";
-  return `${cookieName}=${value}; Max-Age=${maxAge}; Path=/; HttpOnly; SameSite=Lax${secure}`;
+  const secure = new URL(request.url).protocol === 'https:' ? '; Secure' : '';
+  return `${cookieName(request)}=${value}; Max-Age=${maxAge}; Path=/; HttpOnly; SameSite=Lax${secure}`;
 };
-
-const encode = (value: string) =>
-  btoa(value).replaceAll("+", "-").replaceAll("/", "_").replaceAll("=", "");
-
-async function signature(value: string, secret: string) {
-  const key = await crypto.subtle.importKey(
-    "raw",
-    new TextEncoder().encode(secret),
-    { name: "HMAC", hash: "SHA-256" },
-    false,
-    ["sign"],
-  );
-  const bytes = new Uint8Array(
-    await crypto.subtle.sign("HMAC", key, new TextEncoder().encode(value)),
-  );
-  return encode(String.fromCharCode(...bytes));
-}
-
-async function sessionValue(username: string, secret: string) {
-  const payload = `${username}:${Date.now()}`;
-  return `${encode(payload)}.${await signature(payload, secret)}`;
-}
-
-export async function isAuthenticated(request: Request, env: Env) {
-  const raw = request.headers
-    .get("Cookie")
-    ?.match(new RegExp(`${cookieName}=([^;]+)`))?.[1];
-  if (!raw) return false;
-
-  const [payload, sig] = raw.split(".");
-  if (!payload || !sig) return false;
-
-  let decoded = "";
-  try {
-    const padding = (4 - (payload.length % 4)) % 4;
-    decoded = atob(
-      payload.replaceAll("-", "+").replaceAll("_", "/") + "=".repeat(padding),
-    );
-  } catch {
-    return false;
-  }
-
-  const [username, stamp] = decoded.split(":");
-  if (username !== env.ADMIN_USERNAME || Date.now() - Number(stamp) > 86400000)
-    return false;
-  return (await signature(decoded, env.ADMIN_PASSWORD)) === sig;
-}
-
-export const onRequest = async ({
-  request,
-  env,
-}: {
-  request: Request;
-  env: Env;
-}) => {
-  if (request.method === "GET")
-    return json({ authenticated: await isAuthenticated(request, env) });
-  if (request.method !== "POST") return json({ error: "方法不允许。" }, 405);
-
-  const input = (await request.json().catch(() => ({}))) as Record<
-    string,
-    string
-  >;
-  if (input.action === "logout") {
-    return json({ ok: true }, 200, {
-      "Set-Cookie": sessionCookie(request, "", 0),
-    });
-  }
-  if (
-    input.username !== env.ADMIN_USERNAME ||
-    input.password !== env.ADMIN_PASSWORD
-  ) {
-    return json({ error: "账号或密码错误。" }, 401);
-  }
-
-  return json({ ok: true }, 200, {
-    "Set-Cookie": sessionCookie(
-      request,
-      await sessionValue(env.ADMIN_USERNAME, env.ADMIN_PASSWORD),
-      86400,
-    ),
-  });
-};
+const encode = (value: string) => btoa(value).replaceAll('+', '-').replaceAll('/', '_').replaceAll('=', '');
+async function signature(value: string, secret: string) { const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(secret), { name: 'HMAC', hash: 'SHA-256' }, false, ['sign']); return encode(String.fromCharCode(...new Uint8Array(await crypto.subtle.sign('HMAC', key, new TextEncoder().encode(value))))); }
+async function sessionValue(username: string, secret: string) { const payload = `${username}:${Date.now()}`; return `${encode(payload)}.${await signature(payload, secret)}`; }
+export async function isAuthenticated(request: Request, env: Env) { const raw = request.headers.get('Cookie')?.match(new RegExp(`(?:^|;\\s*)${cookieName(request)}=([^;]+)`))?.[1]; if (!raw) return false; const [payload, sig] = raw.split('.'); if (!payload || !sig) return false; let decoded = ''; try { const padding = (4 - (payload.length % 4)) % 4; decoded = atob(payload.replaceAll('-', '+').replaceAll('_', '/') + '='.repeat(padding)); } catch { return false; } const [username, stamp] = decoded.split(':'); const timestamp = Number(stamp); const now = Date.now(); if (username !== env.ADMIN_USERNAME || !Number.isFinite(timestamp) || timestamp > now + 60_000 || now - timestamp > 86400000) return false; return timingSafeEqualText(await signature(decoded, env.ADMIN_PASSWORD), sig); }
+export const onRequest = async ({ request, env }: { request: Request; env: Env }) => { if (request.method === 'GET') return json({ authenticated: await isAuthenticated(request, env) }); if (request.method !== 'POST') return json({ error: '方法不允许。' }, 405); if (!isSameOrigin(request)) return json({ error: '来源不受信任。' }, 403); const input = await request.json().catch(() => ({})) as Record<string, string>; if (input.action === 'logout') return json({ ok: true }, 200, { 'Set-Cookie': sessionCookie(request, '', 0) }); const usernameOk = input.username === env.ADMIN_USERNAME; const passwordOk = await timingSafeEqualText(input.password, env.ADMIN_PASSWORD); if (!usernameOk || !passwordOk) return json({ error: '账号或密码错误。' }, 401); return json({ ok: true }, 200, { 'Set-Cookie': sessionCookie(request, await sessionValue(env.ADMIN_USERNAME, env.ADMIN_PASSWORD), 86400) }); };

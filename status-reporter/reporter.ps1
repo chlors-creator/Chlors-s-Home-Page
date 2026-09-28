@@ -1,4 +1,4 @@
-param([string]$ConfigPath = (Join-Path $PSScriptRoot 'config.json'))
+param([string]$SettingsPath = (Join-Path $env:LOCALAPPDATA 'NaichunSitePresenceReporter\settings.json'))
 
 $ErrorActionPreference = 'Stop'
 Add-Type -AssemblyName System.Runtime.WindowsRuntime
@@ -27,15 +27,21 @@ function Get-NeteaseStatus {
   return @{ state = 'online'; song = $null }
 }
 
-if (-not (Test-Path -LiteralPath $ConfigPath)) { throw "找不到配置文件：$ConfigPath" }
-$config = Get-Content -Raw -LiteralPath $ConfigPath | ConvertFrom-Json
-$endpoint = $config.siteUrl.TrimEnd('/') + '/api/status'
+if (-not (Test-Path -LiteralPath $SettingsPath)) { throw "找不到加密上报设置：$SettingsPath。请重新运行 install.ps1。" }
+$settings = Get-Content -Raw -LiteralPath $SettingsPath | ConvertFrom-Json
+if (-not $settings.siteUrl -or $settings.siteUrl -notmatch '^https://') { throw 'The reporter site URL must start with https://.' }
+$decryptScript = Join-Path $PSScriptRoot 'decrypt-token.ps1'
+$token = (& $decryptScript -SettingsPath $SettingsPath | Out-String).Trim()
+if ([string]::IsNullOrWhiteSpace($token)) { throw 'The protected reporter token could not be decrypted.' }
+$endpoint = $settings.siteUrl.TrimEnd('/') + '/api/status'
+$headers = @{ Authorization = "Bearer $token" }
 
 while ($true) {
   try {
     $music = Get-NeteaseStatus
     $payload = @{ steamOnline = [bool](Get-Process steam -ErrorAction SilentlyContinue); neteaseState = $music.state; song = $music.song } | ConvertTo-Json -Compress
-    Invoke-RestMethod -Method Post -Uri $endpoint -Headers @{ Authorization = "Bearer $($config.token)" } -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($payload)) | Out-Null
+    Invoke-RestMethod -Method Post -Uri $endpoint -Headers $headers -ContentType 'application/json; charset=utf-8' -Body ([Text.Encoding]::UTF8.GetBytes($payload)) | Out-Null
   } catch { }
   Start-Sleep -Seconds 15
 }
+
